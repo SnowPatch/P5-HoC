@@ -2,32 +2,21 @@
   
 require_once 'php/global.class.php';
 $user = new User();
-  
-if(isset($_COOKIE['netkey']) || isset($_SESSION['netkey'])) { 
-  
-  if(isset($_COOKIE['netkey'])) {
-	$result = $user->validate($_COOKIE['netkey']);
-  } else {
-	$result = $user->validate($_SESSION['netkey']);
-  }
-  
-  if($result === FALSE || !is_array($result)) {
-	$result = $user->logout();
-	header("location: login"); die();
-  }
-  
-  // Fetch user data //
-  $info = $user->fetch($result['id']);
-  // --------------- //
-  
-  if($info === FALSE || !is_array($info)) {
-	die('Sorry, we ran into some technical difficulties');
-  }
-  
-} else {
+
+$result = $user->validate();
+
+if($result === FALSE || !is_array($result)) {
   $result = $user->logout();
   header("location: login"); die();
 }
+
+echo $result['id'];
+
+//$info = $user->fetch($result['id']);
+
+//if($info === FALSE || !is_array($info)) {
+//  die('Sorry, we ran into some technical difficulties');
+//}
     
 ?>
 <!doctype html>
@@ -35,7 +24,7 @@ if(isset($_COOKIE['netkey']) || isset($_SESSION['netkey'])) {
 <head>
   <meta charset="utf-8">
 
-  <title>MUS Panel - House of Code</title>
+  <title>WebMUS - House of Code</title>
   <meta name="description" content="House of Code HR-Management System" />
   <meta name="keywords" content="House of Code, data, management, HRM, MUS">
   <meta name="author" content="House of Code" />

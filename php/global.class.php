@@ -5,8 +5,8 @@ date_default_timezone_set("Europe/Berlin");
 
 require_once 'db.inc.php';
 
-// -- Include DB-con without extending classes -- 
-//
+// Include DB-con without extending classes
+
 //class User {
 //
 //  private $db;
@@ -23,7 +23,7 @@ class User extends Database {
   function token($length = 256) {
 	
 	$randStr = '';
-    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ#&%@.+'; //!?$£-:;_
+    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ#&%@.+'; // !?$£-:;_
     $charsLen = strlen($chars); 
     
     for ($i = 0; $i < $length; $i++) { 
@@ -42,7 +42,7 @@ class User extends Database {
 	$sql = "SELECT * FROM " . DB_PREFIX . "employees WHERE email = ? LIMIT 1";
 	if(!($stmt = $this->db->prepare($sql))) { return('Sorry, we ran into some technical difficulties'); }
 	$stmt->bind_param("s", $identifier);
-	$stmt->execute();
+	if (!$stmt->execute()) { return('Sorry, we ran into some technical difficulties'); } // $stmt->error
 	
 	$result = $stmt->get_result();
 	
@@ -59,26 +59,24 @@ class User extends Database {
 	
 	$netkey = $this->token(512);
 	
-	$sql = "INSERT INTO " . DB_PREFIX . "sessions (netkey, logged) VALUES (?, NOW())";
+	$sql = "INSERT INTO " . DB_PREFIX . "sessions (netkey, uid, last_seen, logged) VALUES (?, ?, NOW(), NOW())";
 	if(!($stmt = $this->db->prepare($sql))) { return('Sorry, we ran into some technical difficulties'); }
-	$stmt->bind_param("s", $netkey);
-	$stmt->execute();
+	$stmt->bind_param("s", $netkey, $stored_id);
+	if (!$stmt->execute()) { return('Sorry, we ran into some technical difficulties'); }
 	
 	if($cookie == TRUE) {
 	  
-	  // 5 Days cookie duration
+	  // 5 Day cookie duration
 	  $timespan = time() + 5 * 24 * 60 * 60; 
-	  setcookie('netkey', $netkey, $timespan);
-	  
-	  return TRUE;
+	  setcookie('netkey', $netkey, $timespan, '/');
 	  
 	} else {
 	  
 	  $_SESSION['netkey'] = $netkey;
 	  
-	  return TRUE;
-	  
 	}
+	
+	return TRUE;
 	
 	$stmt->close();
 	
@@ -88,7 +86,7 @@ class User extends Database {
   function logout() { 
 	
 	if(isset($_COOKIE['netkey'])) {
-	  unset($_COOKIE['netkey']);
+	  setcookie('netkey', FALSE, -1, '/');
 	}
 	session_destroy();
 	
@@ -104,11 +102,67 @@ class User extends Database {
   } 
   
   
-  function validate($key) { 
+  function clear_sessions($days) { 
 	
+	$sql = "DELETE FROM " . DB_PREFIX . "sessions WHERE last_seen < DATE_SUB(NOW(), INTERVAL ? DAY)";
+	if(!($stmt = $this->db->prepare($sql))) { return('Sorry, we ran into some technical difficulties'); }
+	$stmt->bind_param("i", $days);
+	if (!$stmt->execute()) { return('Sorry, we ran into some technical difficulties'); }
 	
+    return TRUE; 
 	
-    return "test"; 
+  } 
+  
+  
+  function validate() { 
+	
+	if(!isset($_COOKIE['netkey']) && !isset($_SESSION['netkey'])) { 
+	  return 'No login-token available';
+	}
+	
+	if(isset($_COOKIE['netkey'])) {
+	  $key = $_COOKIE['netkey'];
+	  $cookie = TRUE;
+	} else {
+	  $key = $_SESSION['netkey'];
+	  $cookie = FALSE;
+	}
+	
+	if(strlen($key) != 512) { return 'Invalid login-token'; }
+	
+	// Clear sessions older than x days
+	$clear = $this->clear_sessions(30);
+	
+	$sql = "SELECT * FROM " . DB_PREFIX . "sessions WHERE netkey = ? LIMIT 1";
+	if(!($stmt = $this->db->prepare($sql))) { return('Sorry, we ran into some technical difficulties'); }
+	$stmt->bind_param("s", $key);
+	if (!$stmt->execute()) { return('Sorry, we ran into some technical difficulties'); }
+	
+	$result = $stmt->get_result();
+	
+	if($result->num_rows != 1) { return 'You do not appear to be logged in'; }
+	
+	$row = $result->fetch_assoc();
+	
+	$new_key = $this->token(512);
+	
+	$sql = "UPDATE " . DB_PREFIX . "sessions SET netkey = ?, last_seen = NOW() WHERE netkey = ?";
+	if(!($stmt = $this->db->prepare($sql))) { return('Sorry, we ran into some technical difficulties'); }
+	$stmt->bind_param("ss", $new_key, $key);
+	if (!$stmt->execute()) { return('Sorry, we ran into some technical difficulties'); }
+	
+	$destroy = $this->logout();
+	
+	if($cookie === TRUE) {
+	  $timespan = time() + 5 * 24 * 60 * 60; 
+	  setcookie('netkey', $new_key, $timespan, '/');
+	} else {
+	  $_SESSION['netkey'] = $new_key;
+	}
+	
+	return $row;
+	
+	$stmt->close();
 	
   } 
   
