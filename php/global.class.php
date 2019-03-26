@@ -51,7 +51,7 @@ class User extends Database {
 	$row = $result->fetch_assoc();
 	
 	$stored_pass = $row['pass'];
-	$stored_id = $row['id'];
+	$stored_id = (int)$row['id'];
 	
 	if(strlen($pass) < 8) { return 'Invalid password'; }
 	
@@ -61,7 +61,7 @@ class User extends Database {
 	
 	$sql = "INSERT INTO " . DB_PREFIX . "sessions (netkey, uid, last_seen, logged) VALUES (?, ?, NOW(), NOW())";
 	if(!($stmt = $this->db->prepare($sql))) { return('Sorry, we ran into some technical difficulties'); }
-	$stmt->bind_param("s", $netkey, $stored_id);
+	$stmt->bind_param("si", $netkey, $stored_id);
 	if (!$stmt->execute()) { return('Sorry, we ran into some technical difficulties'); }
 	
 	if($cookie == TRUE) {
@@ -151,13 +151,16 @@ class User extends Database {
 	$stmt->bind_param("ss", $new_key, $key);
 	if (!$stmt->execute()) { return('Sorry, we ran into some technical difficulties'); }
 	
-	$destroy = $this->logout();
-	
 	if($cookie === TRUE) {
+		
+	  setcookie('netkey', FALSE, -1, '/');
 	  $timespan = time() + 5 * 24 * 60 * 60; 
 	  setcookie('netkey', $new_key, $timespan, '/');
+	  
 	} else {
+		
 	  $_SESSION['netkey'] = $new_key;
+	  
 	}
 	
 	return $row;
