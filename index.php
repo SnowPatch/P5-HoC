@@ -1,11 +1,43 @@
+<?php  
+  
+require_once 'php/global.class.php';
+$user = new User();
+  
+if(isset($_COOKIE['netkey']) || isset($_SESSION['netkey'])) { 
+  
+  if(isset($_COOKIE['netkey'])) {
+	$result = $user->validate($_COOKIE['netkey']);
+  } else {
+	$result = $user->validate($_SESSION['netkey']);
+  }
+  
+  if($result === FALSE || !is_array($result)) {
+	$result = $user->logout();
+	header("location: login"); die();
+  }
+  
+  // Fetch user data //
+  $info = $user->fetch($result['id']);
+  // --------------- //
+  
+  if($info === FALSE || !is_array($info)) {
+	die('Sorry, we ran into some technical difficulties');
+  }
+  
+} else {
+  $result = $user->logout();
+  header("location: login"); die();
+}
+    
+?>
 <!doctype html>
 <html lang="da">
 <head>
   <meta charset="utf-8">
 
-  <title>Demo Panel - HoC</title>
-  <meta name="description" content="Demo af HoC HR-Management System" />
-  <meta name="keywords" content="House of Code, data, management, HRM">
+  <title>MUS Panel - House of Code</title>
+  <meta name="description" content="House of Code HR-Management System" />
+  <meta name="keywords" content="House of Code, data, management, HRM, MUS">
   <meta name="author" content="House of Code" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,7 +53,18 @@
 <body>
   
   <nav>
-  <?php include('includes/nav.php'); ?>
+	<div class="container">
+	  <div class="left">
+		<a class="logo" href="index"><img src="images/hoc-icon-color.svg" alt="House of Code" /></a>
+	  </div>
+	  <div class="right">
+		<ul>
+		  <li><a class="text"><?php echo $info['name']; ?></a></li>
+		  <li><a class="button" href="contact">Log ud</a></li>
+		  <li><a class="dropdown" onClick="drop();"> <div></div> <div></div> <div></div> </a></li>
+		</ul>
+	  </div>
+	</div>
   </nav>
 
   <main>

@@ -37,30 +37,30 @@ class User extends Database {
 	
   function login($identifier, $pass, $cookie = FALSE) { 
 	
-	if(!filter_var($identifier, FILTER_VALIDATE_EMAIL)) { return 'Ugyldig email adresse'; }
+	if(!filter_var($identifier, FILTER_VALIDATE_EMAIL)) { return 'Invalid email address'; }
 	
 	$sql = "SELECT * FROM " . DB_PREFIX . "employees WHERE email = ? LIMIT 1";
-	if(!($stmt = $this->db->prepare($sql))) { return('Der skete desværre en teknisk fejl'); }
+	if(!($stmt = $this->db->prepare($sql))) { return('Sorry, we ran into some technical difficulties'); }
 	$stmt->bind_param("s", $identifier);
 	$stmt->execute();
 	
 	$result = $stmt->get_result();
 	
-	if($result->num_rows != 1) { return 'Den indtastede email kunne ikke genkendes'; }
+	if($result->num_rows != 1) { return 'That email could not be recognized'; }
 	
 	$row = $result->fetch_assoc();
 	
 	$stored_pass = $row['pass'];
 	$stored_id = $row['id'];
 	
-	if(strlen($pass) < 8) { return 'Den indtastede kode er ugyldig'; }
+	if(strlen($pass) < 8) { return 'Invalid password'; }
 	
-	if(!password_verify($pass, $stored_pass)) { return 'Den indtastede kode er forkert'; }
+	if(!password_verify($pass, $stored_pass)) { return 'You\'ve enetered a wrong password'; }
 	
 	$netkey = $this->token(512);
 	
 	$sql = "INSERT INTO " . DB_PREFIX . "sessions (netkey, logged) VALUES (?, NOW())";
-	if(!($stmt = $this->db->prepare($sql))) { return('Der skete desværre en teknisk fejl'); }
+	if(!($stmt = $this->db->prepare($sql))) { return('Sorry, we ran into some technical difficulties'); }
 	$stmt->bind_param("s", $netkey);
 	$stmt->execute();
 	
@@ -104,9 +104,9 @@ class User extends Database {
   } 
   
   
-  function validate() { 
+  function validate($key) { 
 	
-	$netkey = ""; 
+	
 	
     return "test"; 
 	
