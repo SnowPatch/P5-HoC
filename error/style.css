@@ -1,0 +1,137 @@
+
+/* Reset 
+---------------------------------------- */
+
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: none;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: top;
+	box-sizing: border-box;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+
+
+/* Fonts 
+---------------------------------------- */
+
+@font-face
+{ font-family: OpenSans; src: url(OpenSans-Light.ttf);
+font-display: swap;
+font-weight: 100; }
+
+@font-face
+{ font-family: OpenSans; src: url(OpenSans-Regular.ttf);
+font-display: swap;
+font-weight: 400; }
+
+@font-face
+{ font-family: OpenSans; src: url(OpenSans-Semibold.ttf);
+font-display: swap;
+font-weight: 600; }
+
+@font-face
+{ font-family: OpenSans; src: url(OpenSans-Bold.ttf);
+font-display: swap;
+font-weight: 700; }
+
+
+
+/* Main
+---------------------------------------- */
+
+body {
+	background: #F4F4F4;
+	font-family: OpenSans, arial, sans-serif;
+	font-size: 16px;
+	color: #212121;
+}
+
+main section {
+	margin-top: calc(10% + 30px);
+	margin-bottom: 30px;
+	width: 100%;
+	min-height: 20px;
+}
+
+main section .container {
+	position: relative;
+	width: 100%;
+	max-width: 960px; /*960px*/
+	margin: 0 auto;
+	padding: 0 30px;
+}
+
+main section .container h1 {
+	display: block;
+	font-size: 4.2rem;
+	font-weight: 100;
+}
+main section .container h2 {
+	display: block;
+	font-size: 3.6rem;
+	line-height: 1.1;
+	font-weight: 700;
+} main section .container h2:after {
+    content: ' ';
+    display: block;
+	width: 80px;
+	margin-top: 24px;
+    border-top: 4px solid #58357F;
+	margin-bottom: 24px;
+}
+main section .container p {
+	display: block;
+	font-size: 1.3rem;
+	font-weight: 400;
+	line-height: 1.35;
+	margin-bottom: 20px;
+}
+
+.button-outline-primary {
+	display: inline-block;
+	box-sizing: border-box;
+	text-decoration: none;
+	color: #666666;
+	font-size: 15px;
+	font-weight: 400;
+	border: 1px solid #707070;
+	border-radius: 4px;
+	margin: 15px 15px 0px 0px;
+	padding: 18px 24px;
+	transition: color 0.3s, background 0.3s, border 0.3s;
+} .button-outline-primary:hover { 
+	color: #FFFFFF; 
+	background: #58357F; 
+	cursor: pointer; 
+	border: 1px solid #58357F;
+}
+
+
+
+/* Smaller than tablet */
+@media (max-width: 750px) {
+	main section .container h1 {
+		font-size: 3.6rem;
+	}
+	main section .container h2 {
+		font-size: 3.0rem;
+	}
+}
+
+
+
+
