@@ -39,14 +39,14 @@ class User extends Database {
 	
 	if(!filter_var($identifier, FILTER_VALIDATE_EMAIL)) { return 'Invalid email address'; }
 	
-	$sql = "SELECT * FROM " . DB_PREFIX . "employees WHERE email = ? LIMIT 1";
+	$sql = "SELECT * FROM " . DB_PREFIX . "employees WHERE email = ? AND deleted = 0";
 	if(!($stmt = $this->db->prepare($sql))) { return('Sorry, we ran into some technical difficulties'); }
 	$stmt->bind_param("s", $identifier);
 	if (!$stmt->execute()) { return('Sorry, we ran into some technical difficulties'); } // $stmt->error
 	
 	$result = $stmt->get_result();
 	
-	if($result->num_rows != 1) { return 'That email could not be recognized'; }
+	if($result->num_rows != 1) { return 'An account with that email could not be found'; }
 	
 	$row = $result->fetch_assoc();
 	
@@ -97,7 +97,18 @@ class User extends Database {
 	
   function fetch($uid) { 
 	
-    return "test"; 
+	$sql = "SELECT * FROM " . DB_PREFIX . "employees WHERE id = ? AND deleted = 0";
+	if(!($stmt = $this->db->prepare($sql))) { return('Sorry, we ran into some technical difficulties'); }
+	$stmt->bind_param("i", $uid);
+	if (!$stmt->execute()) { return('Sorry, we ran into some technical difficulties'); }
+	
+	$result = $stmt->get_result();
+	
+	if($result->num_rows != 1) { return 'We were unable to fetch information about your account'; }
+	
+	return $result->fetch_assoc();
+	
+	$stmt->close();
 	
   } 
   
@@ -110,6 +121,8 @@ class User extends Database {
 	if (!$stmt->execute()) { return('Sorry, we ran into some technical difficulties'); }
 	
     return TRUE; 
+	
+	$stmt->close();
 	
   } 
   
@@ -133,7 +146,7 @@ class User extends Database {
 	// Clear sessions older than x days
 	$clear = $this->clear_sessions(30);
 	
-	$sql = "SELECT * FROM " . DB_PREFIX . "sessions WHERE netkey = ? LIMIT 1";
+	$sql = "SELECT * FROM " . DB_PREFIX . "sessions WHERE netkey = ?";
 	if(!($stmt = $this->db->prepare($sql))) { return('Sorry, we ran into some technical difficulties'); }
 	$stmt->bind_param("s", $key);
 	if (!$stmt->execute()) { return('Sorry, we ran into some technical difficulties'); }

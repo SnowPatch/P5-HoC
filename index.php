@@ -10,13 +10,11 @@ if($result === FALSE || !is_array($result)) {
   header("location: login"); die();
 }
 
-echo $result['id'];
+$info = $user->fetch($result['uid']);
 
-//$info = $user->fetch($result['id']);
-
-//if($info === FALSE || !is_array($info)) {
-//  die('Sorry, we ran into some technical difficulties');
-//}
+if($info === FALSE || !is_array($info)) {
+  die($info);
+}
     
 ?>
 <!doctype html>
@@ -49,7 +47,7 @@ echo $result['id'];
 	  <div class="right">
 		<ul>
 		  <li><a class="text"><?php echo $info['name']; ?></a></li>
-		  <li><a class="button" href="contact">Log ud</a></li>
+		  <li><a class="button" href="logout">Log ud</a></li>
 		  <li><a class="dropdown" onClick="drop();"> <div></div> <div></div> <div></div> </a></li>
 		</ul>
 	  </div>
