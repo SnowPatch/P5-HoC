@@ -6,6 +6,56 @@ body {
 	background-size: 70% auto;
 } 
 
+
+/* Login */
+
+.login .left, .login .right {
+	display: inline-block; 
+	height: 100vh;
+	overflow: hidden;
+	float: left;
+	position: relative;
+}
+.login .left {
+	width: 600px;
+	background: none;
+	padding: 30px 100px;
+}
+.login .right {
+	width: calc(100% - 600px);
+	background: rgba(0, 0, 0, 0.2); 
+}
+
+.login .left .centerbox {
+	margin-top: calc(40% + 30px);
+}
+
+.login .right div {
+	display: inline-block; 
+	height: 50%;
+	width: 50%;
+	float: left;
+}
+.login .right .one { background: url('../images/tile1.jpg') no-repeat center; }
+.login .right .two { background: url('../images/tile2.jpg') no-repeat center; }
+.login .right .three { background: url('../images/tile3.jpg') no-repeat center; }
+.login .right .four { background: url('../images/tile4.jpg') no-repeat center; }
+.login .right .one, .login .right .two, .login .right .three, .login .right .four { background-size: cover; }
+
+.login .right a {
+	display: inline-block;
+	position: absolute;
+	top: 49%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%); 
+	font-size: 70px;
+	color: #FFFFFF; 
+	font-weight: 700;
+}
+
+
+/* Panel */
+
 nav {
 	width: 100%;
 	background: #FFFFFF;
