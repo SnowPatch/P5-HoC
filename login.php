@@ -14,8 +14,6 @@ if(isset($_POST['login-push'])){
 	header("location: index"); die();
   }
   
-  echo $result;
-  
 }
     
 ?>
@@ -42,17 +40,25 @@ if(isset($_POST['login-push'])){
 </head>
 <body>
 
+<?php if(isset($_POST['login-push'])){ ?>
+<div id="errorbox" class="login-error"> <a><?php echo $result; ?></a> </div>
+<?php } ?>
+
   <main class="login">
   
 	<section class="left">
 	  
 	  <div class="centerbox">
 	  
+	    <div class="logo">
+		  <img src="images/hoc-icon-color.svg" alt="House of Code" />
+		</div>
+	  
 		<form class="form" action="<?php echo str_replace('.php','',$_SERVER['PHP_SELF']); ?>" method="post">
 		  <input tabindex="1" name="identifier" class="top" type="email" placeholder="Email" required /> 
-		  <input tabindex="2" name="password" class="bottom" type="password" placeholder="Password" required /> 
-		  <input type="checkbox" name="remember" value="cookie">Remember me (cookie)
-		  <input tabindex="3" name="login-push" type="submit" value="Login" />
+		  <input tabindex="2" name="password" class="bottom" type="password" placeholder="Kodeord" required /> 
+		  <input id="cookie" type="checkbox" name="remember" value="cookie" /> <label for="cookie">Husk mig (cookie)</label>
+		  <input tabindex="3" name="login-push" type="submit" value="Log ind" />
 		</form>
 	  
 	  </div>
@@ -71,6 +77,27 @@ if(isset($_POST['login-push'])){
 	</section>
 	
   </main>
+  
+<?php if(isset($_POST['login-push'])){ ?>
+<script type="text/javascript">
+function pureFadeOut(elem){
+	
+  var el = document.getElementById(elem);
+  el.style.opacity = 1;
+
+  (function fade() {
+    if ((el.style.opacity -= .05) < 0) {
+      el.style.display = "none";
+    } else {
+	  setTimeout(function() { fade(); }, 50);
+    }
+  })();
+  
+};
+
+setTimeout(function() { pureFadeOut("errorbox"); }, 4000);
+</script>
+<?php } ?>
 
 </body>
 </html>
