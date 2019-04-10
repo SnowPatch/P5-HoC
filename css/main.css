@@ -138,6 +138,22 @@ nav li .text {
     color: #515f6d;
     text-decoration: none;
 }
+nav li .user {
+	display: block;
+	box-sizing: border-box;
+	text-decoration: none;
+	color: #919191;
+	font-size: 14px;
+	background: none;
+	border: 1px solid #A5A5A5;
+	padding: 11px 18px;
+	margin-left: 24px;
+	transition: color 0.3s, background 0.3s, border 0.3s;
+} nav li .user:hover {
+	color: #FFFFFF;
+	background: #A5A5A5;
+	cursor: pointer;
+}
 nav li .button {
 	display: block;
 	box-sizing: border-box;
@@ -152,7 +168,6 @@ nav li .button {
 } nav li .button:hover {
 	color: #FFFFFF;
 	background: #A5BB75;
-	border: 1px solid #A5BB75;
 	cursor: pointer;
 }
 
@@ -172,6 +187,72 @@ nav li .dropdown {
 nav li .dropdown:hover {
 	cursor: pointer;
 } 
+
+
+.panel {
+	padding-bottom: 30px;
+}
+
+.panel section {
+	margin-top: 60px;
+}
+
+.panel .title {
+	font-size: 24px;
+	color: #333333;
+}
+
+.panel .employee {
+	background: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	padding: 18px;
+	margin-top: 30px;
+}
+.panel .employee .name {
+	display: block;
+	color: #333333;
+	font-size: 16px;
+}
+.panel .employee .role {
+	display: block;
+	color: #919191;
+	font-size: 12px;
+	margin-top: 4px;
+}
+
+.panel .button-primary {
+	display: inline-block;
+	box-sizing: border-box;
+	text-decoration: none;
+	color: #A5BB75;
+	font-size: 13px;
+	margin: 15px 5px 0px 0px;
+	background: none;
+	border: 1px solid #A5BB75;
+	padding: 12px 14px;
+	transition: color 0.3s, background 0.3s, border 0.3s;
+} .panel .button-primary:hover {
+	color: #FFFFFF;
+	background: #A5BB75;
+	cursor: pointer;
+}
+
+.panel .button-secondary {
+	display: inline-block;
+	box-sizing: border-box;
+	text-decoration: none;
+	color: #919191;
+	font-size: 13px;
+	margin: 15px 5px 0px 0px;
+	background: none;
+	border: 1px solid #A5A5A5;
+	padding: 12px 14px;
+	transition: color 0.3s, background 0.3s, border 0.3s;
+} .panel .button-secondary:hover {
+	color: #FFFFFF;
+	background: #A5A5A5;
+	cursor: pointer;
+}
 
 
 
@@ -194,6 +275,12 @@ nav li .dropdown:hover {
 	}
 	.login .right {
 		display: none;
+	}
+	nav li .user {
+		max-width: 100px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 }
 

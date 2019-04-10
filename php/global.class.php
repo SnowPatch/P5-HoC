@@ -146,7 +146,7 @@ class User extends Database {
 	// Clear sessions older than x days
 	$clear = $this->clear_sessions(30);
 	
-	$sql = "SELECT * FROM " . DB_PREFIX . "sessions WHERE netkey = ?";
+	$sql = "SELECT uid, last_seen FROM " . DB_PREFIX . "sessions WHERE netkey = ?";
 	if(!($stmt = $this->db->prepare($sql))) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
 	$stmt->bind_param("s", $key);
 	if (!$stmt->execute()) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }

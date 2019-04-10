@@ -1,9 +1,14 @@
 <?php  
   
-if(isset($_POST['login-push'])){ 
+require_once 'php/global.class.php';
+$user = new User();
   
-  require_once 'php/global.class.php';
-  $user = new User();
+$login = $user->validate();
+if($login !== FALSE && is_array($login)) {
+  header("location: index"); die();
+}
+  
+if(isset($_POST['login-push'])){ 
   
   $cookie = FALSE;
   if(isset($_POST['remember'])) { $cookie = TRUE; }

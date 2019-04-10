@@ -3,14 +3,13 @@
 require_once 'php/global.class.php';
 $user = new User();
 
-$result = $user->validate();
-
-if($result === FALSE || !is_array($result)) {
-  $result = $user->logout();
+$login = $user->validate();
+if($login === FALSE || !is_array($login)) {
+  $login = $user->logout();
   header("location: login"); die();
 }
 
-$info = $user->fetch($result['uid']);
+$info = $user->fetch($login['uid']);
 
 if($info === FALSE || !is_array($info)) {
   die($info);
@@ -46,7 +45,7 @@ if($info === FALSE || !is_array($info)) {
 	  </div>
 	  <div class="right">
 		<ul>
-		  <li><a class="text"><?php echo $info['name']; ?></a></li>
+		  <li><a class="user"><?php echo $info['name']; ?></a></li>
 		  <li><a class="button" href="logout">Log ud</a></li>
 		  <li><a class="dropdown" onClick="drop();"> <div></div> <div></div> <div></div> </a></li>
 		</ul>
@@ -54,9 +53,55 @@ if($info === FALSE || !is_array($info)) {
 	</div>
   </nav>
 
-  <main>
+  <main class="panel">
   
-
+	<?php if($info['admin'] == 1) { ?>
+	<div class="container">
+	
+	  <section>
+	    <div class="row">
+		  <div class="grid-xs-12"> <a class="title">Medarbejdere</a> </div>
+		  
+		  <div class="grid-xs-6 grid-sm-4 grid-sm-3">
+		    <div class="employee">
+			  <a class="name">Sven Bachmann</a>
+			  <a class="role">Admin</a>
+			  <a class="button-primary" href="#" onclick="return confirm('Er du sikker?')">Inviter til MUS</a>
+			  <a class="button-secondary" href="#">Historik</a>
+			</div>
+		  </div>
+		  
+		  <div class="grid-xs-6 grid-sm-4 grid-sm-3">
+		    <div class="employee">
+			  <a class="name">Joachim Hviid</a>
+			  <a class="role">Medarbejder</a>
+			  <a class="button-primary">Inviter til MUS</a>
+			  <a class="button-secondary">Historik</a>
+			</div>
+		  </div>
+		  
+		  <div class="grid-xs-6 grid-sm-4 grid-sm-3">
+		    <div class="employee">
+			  <a class="name">Laura Damsgaard</a>
+			  <a class="role">Medarbejder</a>
+			  <a class="button-primary">Inviter til MUS</a>
+			  <a class="button-secondary">Historik</a>
+			</div>
+		  </div>
+		  
+		</div>
+	  </section>
+	  
+	  <section>
+	    <div class="row">
+		  <div class="grid-xs-12"> <a class="title">Opret ny</a> </div>
+		</div>
+	  </section>
+	
+	</div>
+	<?php } else { ?>
+	<a>Ikke admin</a>
+	<?php } ?>
 	
   </main>
 
