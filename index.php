@@ -48,7 +48,7 @@ if($info === FALSE || !is_array($info)) {
 	  <div class="right">
 		<ul>
 		  <li>
-		    <button class="user" onclick="toggleDrop();"><?php echo $info['name']; ?></button>
+		    <button id="dropbtn" class="user" onclick="showDrop();"><?php echo $info['name']; ?></button>
 			<div id="navdrop" class="drop">
 			  <a href="#">Historik</a>
 			  <a href="#">Indstillinger</a>
@@ -61,7 +61,16 @@ if($info === FALSE || !is_array($info)) {
   </nav>
   
 <script>
-function toggleDrop() { document.getElementById("navdrop").classList.toggle("active"); }
+const dropbtn = document.getElementById('dropbtn');
+const navdrop = document.getElementById('navdrop');
+
+window.addEventListener('click', function(e){ 
+  if (!navdrop.contains(e.target) && !dropbtn.contains(e.target)){
+	navdrop.classList.remove("active");
+  }
+});
+
+function showDrop() { navdrop.classList.toggle("active"); }
 </script>
 
   <main class="panel">
