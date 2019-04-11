@@ -30,6 +30,8 @@ if($info === FALSE || !is_array($info)) {
 
   <link rel="stylesheet" href="css/main.css?v=<?php print filemtime("css/main.css"); ?>" />
   <link rel="stylesheet" href="iconfont/material-icons.css">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" async></script>
 
   <!-- Icon -->
 
@@ -45,13 +47,22 @@ if($info === FALSE || !is_array($info)) {
 	  </div>
 	  <div class="right">
 		<ul>
-		  <li><a class="user"><?php echo $info['name']; ?></a></li>
-		  <li><a class="button" href="logout">Log ud</a></li>
-		  <li><a class="dropdown" onClick="drop();"> <div></div> <div></div> <div></div> </a></li>
+		  <li>
+		    <button class="user" onclick="toggleDrop();"><?php echo $info['name']; ?></button>
+			<div id="navdrop" class="drop">
+			  <a href="#">Historik</a>
+			  <a href="#">Indstillinger</a>
+			  <a href="#">Log ud</a>
+			</div>
+		  </li>
 		</ul>
 	  </div>
 	</div>
   </nav>
+  
+<script>
+function toggleDrop() { document.getElementById("navdrop").classList.toggle("active"); }
+</script>
 
   <main class="panel">
   
@@ -66,8 +77,8 @@ if($info === FALSE || !is_array($info)) {
 		    <div class="employee">
 			  <a class="name">Sven Bachmann</a>
 			  <a class="role">Admin</a>
-			  <a class="button-primary" href="#" onclick="return confirm('Er du sikker?')">Inviter til MUS</a>
-			  <a class="button-secondary" href="#">Historik</a>
+			  <a class="button-primary" href="#">Opret MUS</a>
+			  <a class="button-secondary" href="#">Alle samtaler</a>
 			</div>
 		  </div>
 		  
@@ -75,8 +86,8 @@ if($info === FALSE || !is_array($info)) {
 		    <div class="employee">
 			  <a class="name">Joachim Hviid</a>
 			  <a class="role">Medarbejder</a>
-			  <a class="button-primary">Inviter til MUS</a>
-			  <a class="button-secondary">Historik</a>
+			  <a class="button-primary">Opret MUS</a>
+			  <a class="button-secondary">Alle samtaler</a>
 			</div>
 		  </div>
 		  
@@ -84,8 +95,8 @@ if($info === FALSE || !is_array($info)) {
 		    <div class="employee">
 			  <a class="name">Laura Damsgaard</a>
 			  <a class="role">Medarbejder</a>
-			  <a class="button-primary">Inviter til MUS</a>
-			  <a class="button-secondary">Historik</a>
+			  <a class="button-primary">Opret MUS</a>
+			  <a class="button-secondary">Alle samtaler</a>
 			</div>
 		  </div>
 		  

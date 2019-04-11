@@ -259,6 +259,11 @@ textarea {
 	appearance: none; 
 }
 
+input[type="submit"],
+button {
+	outline: none; 
+}
+
 textarea {
 	min-height: 200px;
 	max-height: 500px;
