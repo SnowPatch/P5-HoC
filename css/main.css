@@ -267,12 +267,12 @@ nav li .drop a {
 	.login .right {
 		display: none;
 	}
-	nav li .user {
+	/*nav li .user {
 		max-width: 100px;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
-	}
+	}*/
 }
 
 /* Smaller than tablet */
