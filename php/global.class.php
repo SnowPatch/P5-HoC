@@ -19,7 +19,6 @@ require_once 'db.inc.php';
 
 class User extends Database {
 	
-	
   function token($length = 256) {
 	
 	$randStr = '';
@@ -97,7 +96,7 @@ class User extends Database {
 	
   function fetch($uid) { 
 	
-	$sql = "SELECT id, email, name, permissions, admin, deleted FROM " . DB_PREFIX . "employees WHERE id = ? AND deleted = 0";
+	$sql = "SELECT id, email, name, permissions, admin FROM " . DB_PREFIX . "employees WHERE id = ? AND deleted = 0";
 	if(!($stmt = $this->db->prepare($sql))) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
 	$stmt->bind_param("i", $uid);
 	if (!$stmt->execute()) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
@@ -182,7 +181,46 @@ class User extends Database {
 	
   } 
   
+  
+  function remove($uid) { 
 	
+	$sql = "UPDATE " . DB_PREFIX . "employees SET deleted = 1 WHERE id = ?";
+	if(!($stmt = $this->db->prepare($sql))) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
+	$stmt->bind_param("i", $uid);
+	if (!$stmt->execute()) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
+	
+	return TRUE;
+	
+	$stmt->close();
+	
+  } 
+  
+}
+
+
+class Panel extends Database {
+	
+  function fetch_employees() { 
+	
+	$sql = "SELECT id, email, name, permissions, admin FROM " . DB_PREFIX . "employees WHERE deleted = 0";
+	if(!($stmt = $this->db->prepare($sql))) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
+	if (!$stmt->execute()) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
+	
+	$result = $stmt->get_result();
+	
+	if($result->num_rows == 0) { return 'Vi kunne desværre ikke finde '; }
+	
+	$array = [];
+	while ($row = $result->fetch_assoc()) {
+	  array_push($array, $row);
+	}
+	
+	return $array;
+	
+	$stmt->close();
+	
+  } 
+  
 }
 
 ?>

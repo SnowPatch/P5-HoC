@@ -14,6 +14,32 @@ $info = $user->fetch($login['uid']);
 if($info === FALSE || !is_array($info)) {
   die($info);
 }
+
+$panel = new Panel();
+
+$employees = $panel->fetch_employees();
+
+if(is_array($employees)) { 
+
+  $output = "";
+  foreach($employees as $empl) {
+	if($empl["admin"] != 1) { $role = "Medarbejder"; } else { $role = "Admin"; }
+	$output .= '
+	<div class="grid-xs-6 grid-sm-4 grid-sm-3">
+	  <div class="employee">
+		<div class="name"> 
+		  <a>'.$empl["name"].'</a> 
+		  <a href="delete?id='.$empl["id"].'" onclick="return confirm(\'Er du sikker?\')"><sup>slet</sup></a> 
+		</div>
+		<a class="role">'.$role.'</a>
+		<a class="button-primary" href="#id'.$empl["id"].'">Opret MUS</a>
+		<a class="button-secondary" href="#id'.$empl["id"].'">Alle samtaler</a>
+	  </div>
+	</div>
+	';
+  }
+  
+} else { $output = '<div class="grid-xs-12"><a class="errortext">' . $employees . '</a></div>'; }
     
 ?>
 <!doctype html>
@@ -50,9 +76,9 @@ if($info === FALSE || !is_array($info)) {
 		  <li>
 		    <button id="dropbtn" class="user" onclick="showDrop();"><?php echo $info['name']; ?></button>
 			<div id="navdrop" class="drop">
-			  <a href="#">Historik</a>
-			  <a href="#">Indstillinger</a>
-			  <a href="#">Log ud</a>
+			  <a href="history">Min historik</a>
+			  <a href="settings">Indstillinger</a>
+			  <a href="logout">Log ud</a>
 			</div>
 		  </li>
 		</ul>
@@ -80,41 +106,16 @@ function showDrop() { navdrop.classList.toggle("active"); }
 	
 	  <section>
 	    <div class="row">
-		  <div class="grid-xs-12"> <a class="title">Medarbejdere</a> </div>
+		  <div class="grid-xs-12"> <a class="title">Medarbejdere();</a> </div>
 		  
-		  <div class="grid-xs-6 grid-sm-4 grid-sm-3">
-		    <div class="employee">
-			  <a class="name">Sven Bachmann</a>
-			  <a class="role">Admin</a>
-			  <a class="button-primary" href="#">Opret MUS</a>
-			  <a class="button-secondary" href="#">Alle samtaler</a>
-			</div>
-		  </div>
-		  
-		  <div class="grid-xs-6 grid-sm-4 grid-sm-3">
-		    <div class="employee">
-			  <a class="name">Joachim Hviid</a>
-			  <a class="role">Medarbejder</a>
-			  <a class="button-primary">Opret MUS</a>
-			  <a class="button-secondary">Alle samtaler</a>
-			</div>
-		  </div>
-		  
-		  <div class="grid-xs-6 grid-sm-4 grid-sm-3">
-		    <div class="employee">
-			  <a class="name">Laura Damsgaard</a>
-			  <a class="role">Medarbejder</a>
-			  <a class="button-primary">Opret MUS</a>
-			  <a class="button-secondary">Alle samtaler</a>
-			</div>
-		  </div>
+		  <?php echo $output; ?>
 		  
 		</div>
 	  </section>
 	  
 	  <section>
 	    <div class="row">
-		  <div class="grid-xs-12"> <a class="title">Opret ny</a> </div>
+		  <div class="grid-xs-12"> <a class="title">Opret_ny();</a> </div>
 		</div>
 	  </section>
 	

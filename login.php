@@ -62,7 +62,7 @@ if(isset($_POST['login-push'])){
 		<form class="form" action="<?php echo str_replace('.php','',$_SERVER['PHP_SELF']); ?>" method="post">
 		  <input tabindex="1" name="identifier" class="top" type="email" placeholder="Email" required /> 
 		  <input tabindex="2" name="password" class="bottom" type="password" placeholder="Kodeord" required /> 
-		  <input id="cookie" type="checkbox" name="remember" value="cookie" /> <label for="cookie">Husk mig (cookie)</label>
+		  <input id="cookie" type="checkbox" name="remember" value="cookie" checked /> <label for="cookie">Husk mig (cookie)</label>
 		  <input tabindex="3" name="login-push" type="submit" value="Log ind" />
 		</form>
 	  
