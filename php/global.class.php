@@ -195,6 +195,105 @@ class User extends Database {
 	
   } 
   
+  
+  function create($identifier, $name, $role) { 
+	
+	if(!filter_var($identifier, FILTER_VALIDATE_EMAIL)) { return 'Ugyldig email adresse'; }
+	
+	if(strlen($name) < 4) { return 'Indtast et navn på over 3 tegn'; }
+	
+	if($role != 0 && $role != 1) { return 'Vælg en gyldig konto type'; }
+	
+	$sql = "SELECT id FROM " . DB_PREFIX . "employees WHERE email = ? AND deleted = 0";
+	if(!($stmt = $this->db->prepare($sql))) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
+	$stmt->bind_param("s", $identifier);
+	if (!$stmt->execute()) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
+	
+	$result = $stmt->get_result();
+	
+	if($result->num_rows > 0) { return 'Der findes allerede en bruger med denne email'; }
+	
+	$pass_gen = $this->token(16);
+	$pass_crypt = password_hash($pass_gen, PASSWORD_DEFAULT);
+	
+	$sql = "INSERT INTO " . DB_PREFIX . "employees (email,name,pass,admin) VALUES (?,?,?,?)";
+	if(!($stmt = $this->db->prepare($sql))) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
+	$stmt->bind_param("sssi", $identifier, $name, $pass_crypt, $role);
+	if (!$stmt->execute()) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
+	
+	// Notify by email
+	require_once('smtp/class.phpmailer.php');
+	require_once('smtp/class.smtp.php');
+
+	$mail = new PHPMailer;
+
+	$mail->isSMTP();
+	$mail->Host = 'send.one.com';
+	$mail->SMTPAuth = true;
+	$mail->Username = 'test@swinther.com';
+	$mail->Password = 'test12345';
+	$mail->SMTPSecure = 'ssl';
+	$mail->Port = 465;
+
+	$mail->setFrom('test@swinther.com', 'Swinther Testing');
+	$mail->addAddress($identifier); 
+	$mail->addReplyTo('test@swinther.com', 'Swinther Testing');
+
+	$mail->isHTML(true); 
+
+	$mail->Subject = 'Din kode til HoC WebMUS';
+	$mail->Body    = '
+	<br>Din konto til WebMUS er nu oprettet. 
+	<br>Du kan logge ind med din email samt følgende kodeord: <b>'.$pass_gen.'</b>
+	<br>
+	<br>Husk dog, at koden helst skal skiftes hurtigst muligt.';
+	$mail->AltBody = 'Din konto til WebMUS er oprettet. Din kode er '.$pass_gen;
+
+	if(!$mail->send()) {
+		return('Kontoen er oprettet, men koden kunne ikke sendes. Brug denne kode for at logge ind: '.$pass_gen);
+	}
+	
+	return TRUE;
+	
+	$stmt->close();
+	
+  } 
+  
+  
+  function change_pass($uid, $old, $new, $repeat) { 
+	
+	$sql = "SELECT pass FROM " . DB_PREFIX . "employees WHERE id = ? AND deleted = 0";
+	if(!($stmt = $this->db->prepare($sql))) { return('Sorry, we ran into some technical difficulties'); }
+	$stmt->bind_param("i", $uid);
+	if (!$stmt->execute()) { return('Beklager, vi oplever desværre nogle tekniske problemer'); } // $stmt->error
+	
+	$result = $stmt->get_result();
+	
+	if($result->num_rows != 1) { return 'Ugyldig bruger'; }
+	
+	$row = $result->fetch_assoc();
+	
+	$stored_pass = $row['pass'];
+	
+	if(strlen($new) < 8) { return 'Ugyldig adgangskode'; }
+	
+	if(!password_verify($old, $stored_pass)) { return 'Den indtastede gamle adgangskode er forkert'; }
+	
+	if($new !== $repeat) { return 'De nye kodeord matcher ikke'; }
+	
+	$pass_crypt = password_hash($new, PASSWORD_DEFAULT);
+	
+	$sql = "UPDATE " . DB_PREFIX . "employees SET pass = ? WHERE id = ?";
+	if(!($stmt = $this->db->prepare($sql))) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
+	$stmt->bind_param("si", $pass_crypt, $uid);
+	if (!$stmt->execute()) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
+	
+	return TRUE;
+	
+	$stmt->close();
+	
+  } 
+  
 }
 
 
@@ -202,7 +301,7 @@ class Panel extends Database {
 	
   function fetch_employees() { 
 	
-	$sql = "SELECT id, email, name, permissions, admin FROM " . DB_PREFIX . "employees WHERE deleted = 0";
+	$sql = "SELECT id, email, name, permissions, admin FROM " . DB_PREFIX . "employees WHERE deleted = 0 ORDER BY id ASC";
 	if(!($stmt = $this->db->prepare($sql))) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
 	if (!$stmt->execute()) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
 	

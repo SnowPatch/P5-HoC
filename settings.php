@@ -16,44 +16,16 @@ if($info === FALSE || !is_array($info)) {
 }
 
 
-if(isset($_POST['empl-create-push'])){ 
+if(isset($_POST['pass-update-push'])){ 
   
-  $result = $user->create($_POST['identifier'], $_POST['name'], $_POST['role']);
+  $result = $user->change_pass($info['id'], $_POST['old'], $_POST['new'], $_POST['repeat']);
   
   if($result === TRUE) {
-	$err = FALSE;
-  } else {
-	$err = TRUE;
-  }
+	$login = $user->logout();
+	header("location: login"); die();
+  } 
   
 }
-
-
-$panel = new Panel();
-
-$employees = $panel->fetch_employees();
-
-if(is_array($employees)) { 
-
-  $output = "";
-  foreach($employees as $empl) {
-	if($empl["admin"] != 1) { $role = "Medarbejder"; } else { $role = "Admin"; }
-	$output .= '
-	<div class="grid-xs-6">
-	  <div class="employee">
-		<div class="name"> 
-		  <a>'.$empl["name"].'</a> 
-		  <a href="delete?id='.$empl["id"].'" onclick="return confirm(\'Er du sikker?\')"><sup>slet</sup></a> 
-		</div>
-		<a class="role">'.$role.'</a>
-		<a class="button-primary" href="#id'.$empl["id"].'">Opret MUS</a>
-		<a class="button-secondary" href="#id'.$empl["id"].'">Alle samtaler</a>
-	  </div>
-	</div>
-	';
-  }
-  
-} else { $output = '<div class="grid-xs-12"><a class="errortext">' . $employees . '</a></div>'; }
 	
 ?>
 <!doctype html>
@@ -80,7 +52,7 @@ if(is_array($employees)) {
 </head>
 <body>
 
-<?php if(isset($_POST['empl-create-push']) && $err === TRUE){ ?>
+<?php if(isset($_POST['pass-update-push'])){ ?>
 <div id="errorbox" class="submit-error"> <a><?php echo $result; ?></a> </div>
 <script type="text/javascript">
 function pureFadeOut(elem){
@@ -127,6 +99,7 @@ setTimeout(function() { pureFadeOut("errorbox"); }, 5000);
 	  <div class="grid-xs-12 breadcrumbs">
 	    <a>WebMUS</a>
 		<a href="index">Forside</a>
+		<a href="settings">Settings</a>
 	  </div>
     </div>
   </div>
@@ -146,39 +119,25 @@ function showDrop() { navdrop.classList.toggle("active"); }
 
   <main class="panel">
   
-	<?php if($info['admin'] == 1) { ?>
 	<div class="container">
-	
-	  <section>
-	    <div class="row">
-		  <div class="grid-xs-12"> <a class="title">Medarbejdere();</a> </div>
-		  
-		  <?php echo $output; ?>
-		  
-		</div>
-	  </section>
 	  
 	  <section>
 	    <div class="row">
-		  <div class="grid-xs-12"> <a class="title">Opret_ny();</a> </div>
+		  <div class="grid-xs-12"> <a class="title">Skift_kode();</a> </div>
 		  <form class="form" action="<?php echo str_replace('.php','',$_SERVER['PHP_SELF']); ?>" method="post">
 		  
 		    <div class="grid-xs-6 grid-md-4">
-			  <input tabindex="1" name="identifier" type="email" placeholder="Email" required /> 
+			  <input tabindex="1" name="old" type="password" placeholder="Gamle kode" required /> 
 			</div>
 			<div class="grid-xs-6 grid-md-4">
-			  <input tabindex="2" name="name" type="text" placeholder="Fulde navn" required /> 
+			  <input tabindex="2" name="new" type="password" placeholder="Ny kode" required /> 
 			</div>
 			<div class="grid-xs-6 grid-md-4">
-			  <select id="role" name="role" required>
-			    <option value="" disabled="" selected="">Konto type</option>
-				<option value="0">Medarbejder</option>
-				<option value="1">Admin</option>
-			  </select>
+			  <input tabindex="3" name="repeat" type="password" placeholder="Gentag ny kode" required /> 
 			</div>
-			
+
 			<div class="grid-xs-12">
-			  <input tabindex="4" name="empl-create-push" type="submit" value="Opret medarbejder" />
+			  <input tabindex="4" name="pass-update-push" type="submit" value="Gem ændring" />
 			</div>
 			
 		  </form>
@@ -186,9 +145,6 @@ function showDrop() { navdrop.classList.toggle("active"); }
 	  </section>
 	
 	</div>
-	<?php } else { ?>
-	<a>Ikke admin</a>
-	<?php } ?>
 	
   </main>
 

@@ -46,7 +46,25 @@ if(isset($_POST['login-push'])){
 <body>
 
 <?php if(isset($_POST['login-push'])){ ?>
-<div id="errorbox" class="login-error"> <a><?php echo $result; ?></a> </div>
+<div id="errorbox" class="submit-error"> <a><?php echo $result; ?></a> </div>
+<script type="text/javascript">
+function pureFadeOut(elem){
+	
+  var el = document.getElementById(elem);
+  el.style.opacity = 1;
+
+  (function fade() {
+    if ((el.style.opacity -= .05) < 0) {
+      el.style.display = "none";
+    } else {
+	  setTimeout(function() { fade(); }, 50);
+    }
+  })();
+  
+};
+
+setTimeout(function() { pureFadeOut("errorbox"); }, 5000);
+</script>
 <?php } ?>
 
   <main class="login">
@@ -82,27 +100,6 @@ if(isset($_POST['login-push'])){
 	</section>
 	
   </main>
-  
-<?php if(isset($_POST['login-push'])){ ?>
-<script type="text/javascript">
-function pureFadeOut(elem){
-	
-  var el = document.getElementById(elem);
-  el.style.opacity = 1;
-
-  (function fade() {
-    if ((el.style.opacity -= .05) < 0) {
-      el.style.display = "none";
-    } else {
-	  setTimeout(function() { fade(); }, 50);
-    }
-  })();
-  
-};
-
-setTimeout(function() { pureFadeOut("errorbox"); }, 4000);
-</script>
-<?php } ?>
 
 </body>
 </html>
