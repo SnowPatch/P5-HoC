@@ -1,43 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <body>
-  	<p id="quotebox"></p>
-  </body>
-      
-	<script>
-		var speed = 200; 
-        var quotebox = document.getElementById('quotebox');
-		
-    
-        quotes = ["#BeAwesome","#BeCreative","#BeHappy","#BeHelpful","#BePositive"];
-        var counter = 0;
-        var i = 0;
-        var j = quotes[counter].length; 
-    
-    
-		
-        function loop() { 
-        if (i < quotes[counter].length) {  
-				quotebox.innerHTML += quotes[counter].charAt(i);
-				i++; 
-			}
-			else{ 
-				if (j >= 0) { 
-            quotebox.innerHTML = quotebox.innerHTML.substring(0, j); 
-            j--; 
-            }
-            else{ 
-            counter++; 
-            if (counter > 4) {
-            counter = 0; 
-            }
-            i = 0; 
-            j = quotes[counter].length; 
-                }
-            }
-        setTimeout(loop, speed); 
-        } 
-    
-		window.onload = loop(); 
-	</script>
+<head>
+  <title>JS loop</title>
+</head>
+<body>
+
+  <p id="box"></p>
+  
+</body>
+
+<script>
+var element = document.getElementById('box');
+var quotes = ["#BeAwesome", "#BeCreative", "#BeHappy", "#BeHelpful", "#BePositive"];
+var quoteNum = 0;
+var speed = 50;
+
+var i = 0;
+var j = quotes[quoteNum].length;
+
+function loop() {
+  
+  // TypeWrite effekt ind
+  if (i < quotes[quoteNum].length) {
+    element.innerHTML += quotes[quoteNum].charAt(i);
+	i++;
+	setTimeout(loop, speed); 
+	return;
+  }
+  
+  // Delay
+  if (i == quotes[quoteNum].length) { 
+    i++; 
+	setTimeout(loop, 2500); 
+	return;
+  }
+  
+  // TypeWrite effekt ud
+  if (j >= 0) {
+    element.innerHTML = element.innerHTML.substring(0, j); 
+    j--;
+	setTimeout(loop, speed); 
+	return;
+  }
+  
+  // Reset
+  if (j < 0) {
+    quoteNum++;
+	if(quoteNum == quotes.length) {
+	  quoteNum = 0;
+	}
+    i = 0;
+	j = quotes[quoteNum].length;
+	setTimeout(loop, speed); 
+	return;
+  }
+  
+}
+
+window.onload = loop();
+</script>
+
 </html>
