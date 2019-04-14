@@ -15,6 +15,7 @@ if($info === FALSE || !is_array($info)) {
   die($info);
 }
 
+
 if(!isset($_GET['id']) || $info['admin'] !== 1) {
 	
   $history_id = $login['uid'];
@@ -37,6 +38,17 @@ if(!isset($_GET['id']) || $info['admin'] !== 1) {
 
 
 $panel = new Panel();
+
+if(isset($_POST['mus-invite-push'])){ 
+  
+  $mus_result = $panel->invite_mus($_POST['mus_id'], $_POST['empl'], $_POST['mus_from']);
+  
+  if($mus_result === TRUE) {
+	header("location: history?id=".$_POST['mus_from']); die();
+  } 
+  
+}
+
 
 $history = $panel->fetch_history($history_id);
 
@@ -66,11 +78,13 @@ if(is_array($history)) {
 		  $invite = '
 		    <a class="title">Inviter kollega ('.(count($item["child"]) - 1).'/'.$item["invites"].')</a>
 			<form action="'.$action.'" method="post">
-		      <select id="role" name="role" required>
+		      <select tabindex="1" id="empl" name="empl" required>
 				<option value="" disabled="" selected="">Kollega</option>
 				'.$employee_list.'
 			  </select>
-			  <input tabindex="3" name="mus-invite-push" type="submit" value="Inviter" />
+			  <input type="hidden" name="mus_id" value="'.$item["id"].'" />
+			  <input type="hidden" name="mus_from" value="'.$history_id.'" />
+			  <input tabindex="2" name="mus-invite-push" type="submit" value="Inviter" />
 			</form>
 		  ';
 	  }
@@ -87,7 +101,7 @@ if(is_array($history)) {
 	  
 	  $invite_text = "";
 	  if(isset($item["invited_by"])) {
-		$invite_text = '<a class="title">Inviteret af '.$item["invited_by"].'</a><br>'; 
+		$invite_text = '<a class="title">Inviteret af: '.$item["invited_by"].'</a><br>'; 
 	  }
 	
 	  $output .= '
@@ -120,7 +134,7 @@ if(is_array($history)) {
 	  
 	  $ext_type = "employee";
 	  if(isset($item["invited_by"])) {
-		$invite = '<a class="title">Inviteret af '.$item["invited_by"].'</a><br>'; 
+		$invite = '<a class="title">Inviteret af: '.$item["invited_by"].'</a><br>'; 
 		$ext_type = "colleague";
 	  }
 	  
@@ -131,7 +145,7 @@ if(is_array($history)) {
 
 		    <div class="grid-xs-12 grid-sm-4 grid-md-3 grid-lg-2 data">
 			  <a class="id">#'.$item["id"].'</a>
-			  <a class="info">Deadline:<br>14-04-2019</a>
+			  <a class="info">Deadline:<br>'.$formatted.'</a>
 			  <a class="delete" href="" onclick="return confirm(\'Er du sikker?\')">Slet samtale</a>
 		    </div>
 		
@@ -178,6 +192,28 @@ if(is_array($history)) {
 
 </head>
 <body>
+
+<?php if(isset($_POST['mus-invite-push']) && $err === TRUE){ ?>
+<div id="errorbox" class="submit-error"> <a><?php echo $mus_result; ?></a> </div>
+<script type="text/javascript">
+function pureFadeOut(elem){
+	
+  var el = document.getElementById(elem);
+  el.style.opacity = 1;
+
+  (function fade() {
+    if ((el.style.opacity -= .05) < 0) {
+      el.style.display = "none";
+    } else {
+	  setTimeout(function() { fade(); }, 50);
+    }
+  })();
+  
+};
+
+setTimeout(function() { pureFadeOut("errorbox"); }, 5000);
+</script>
+<?php } ?>
   
   <nav>
 	<div class="container">

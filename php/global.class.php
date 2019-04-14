@@ -344,11 +344,45 @@ class Panel extends Database {
 	$stmt->close();
 	
   } 
-
-
-  function fetch_history($target, $limit = 999) { 
+  
+  
+  function invite_mus($parent, $to, $from) { 
 	
-	$sql = "SELECT id, parent, id_from, invites, deadline FROM " . DB_PREFIX . "mus WHERE id_to = ? AND (type = 'employee' OR type = 'colleague') AND deleted = 0 ORDER BY id DESC LIMIT ?";
+	if (!is_numeric($parent) || !is_numeric($to) || !is_numeric($from)) { 
+	  return('Nogle felter er muligvis ikke udfyldt Korrekt. Prøv igen'); 
+	}
+	
+	$sql = "SELECT deadline FROM " . DB_PREFIX . "mus WHERE id = ? AND deleted = 0";
+	if(!($stmt = $this->db->prepare($sql))) { return(DB_ERROR); }
+	$stmt->bind_param("i", $parent);
+	if (!$stmt->execute()) { return(DB_ERROR); }
+	
+	$result = $stmt->get_result();
+	
+	if($result->num_rows != 1) { return 'Vi kunne desværre ikke indhente information om samtalen'; }
+	
+	$info = $result->fetch_assoc();
+	
+	$sql = "INSERT INTO " . DB_PREFIX . "mus (parent,id_from,id_to,type,created,deadline) VALUES (?,?,?,'colleague',NOW(),?)";
+	if(!($stmt = $this->db->prepare($sql))) { return(DB_ERROR); }
+	$stmt->bind_param("iiis", $parent, $from, $to, $info['deadline']);
+	if (!$stmt->execute()) { return(DB_ERROR); }
+	
+	return TRUE;
+	
+	$stmt->close();
+	
+  } 
+
+
+  function fetch_history($target, $active = 0, $limit = 999) { 
+	
+	if($active == 0) {
+	  $sql = "SELECT id, parent, id_from, invites, deadline FROM " . DB_PREFIX . "mus WHERE id_to = ? AND (type = 'employee' OR type = 'colleague') AND deleted = 0 ORDER BY id DESC LIMIT ?";
+	} else {
+	  $sql = "SELECT id, parent, id_from, invites, deadline FROM " . DB_PREFIX . "mus WHERE deadline >= NOW() AND id_to = ? AND (type = 'employee' OR type = 'colleague') AND deleted = 0 ORDER BY id DESC LIMIT ?";
+	}
+
 	if(!($stmt = $this->db->prepare($sql))) { return(DB_ERROR); }
 	$stmt->bind_param("ii", $target, $limit);
 	if (!$stmt->execute()) { return(DB_ERROR); }
