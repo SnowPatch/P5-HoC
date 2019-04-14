@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <body>
+  	<p id="quotebox"></p>
+  </body>
+      
+	<script>
+		var speed = 200; 
+        var quotebox = document.getElementById('quotebox');
+		
+    
+        quotes = ["#BeAwesome","#BeCreative","#BeHappy","#BeHelpful","#BePositive"];
+        var counter = 0;
+        var i = 0;
+        var j = quotes[counter].length; 
+    
+    
+		
+        function loop() { 
+        if (i < quotes[counter].length) {  
+				quotebox.innerHTML += quotes[counter].charAt(i);
+				i++; 
+			}
+			else{ 
+				if (j >= 0) { 
+            quotebox.innerHTML = quotebox.innerHTML.substring(0, j); 
+            j--; 
+            }
+            else{ 
+            counter++; 
+            if (counter > 4) {
+            counter = 0; 
+            }
+            i = 0; 
+            j = quotes[counter].length; 
+                }
+            }
+        setTimeout(loop, speed); 
+        } 
+    
+		window.onload = loop(); 
+	</script>
+</html>
