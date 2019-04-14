@@ -15,16 +15,28 @@ if($info === FALSE || !is_array($info)) {
   die($info);
 }
 
+if($info["admin"] !== 1) { header("location: index"); }
 
-if(isset($_POST['pass-update-push'])){ 
+
+if(isset($_POST['mus-create-push'])){ 
+
+  $panel = new Panel();
   
-  $result = $user->change_pass($info['id'], $_POST['old'], $_POST['new'], $_POST['repeat']);
+  $result = $panel->create_mus($_POST['uid'], $info['id'], $_POST['deadline'], $_POST['invites']);
   
   if($result === TRUE) {
-	$login = $user->logout();
-	header("location: login"); die();
+	header("location: history?id=".$_POST['uid']); die();
   } 
   
+  $get_id = $_POST['uid'];
+  
+} else { $get_id = $_GET['id']; }
+
+
+$selected = $user->fetch($get_id);
+
+if($selected === FALSE || !is_array($selected)) {
+  die($selected);
 }
 	
 ?>
@@ -52,7 +64,7 @@ if(isset($_POST['pass-update-push'])){
 </head>
 <body>
 
-<?php if(isset($_POST['pass-update-push'])){ ?>
+<?php if(isset($_POST['mus-create-push'])){ ?>
 <div id="errorbox" class="submit-error"> <a><?php echo $result; ?></a> </div>
 <script type="text/javascript">
 function pureFadeOut(elem){
@@ -100,7 +112,7 @@ setTimeout(function() { pureFadeOut("errorbox"); }, 5000);
 	  <div class="grid-xs-12 breadcrumbs">
 	    <a>WebMUS</a>
 		<a href="index">Forside</a>
-		<a href="settings">Settings</a>
+		<a href="new?id=<?php echo $_GET['id']; ?>">Opret MUS</a>
 	  </div>
     </div>
   </div>
@@ -124,21 +136,25 @@ function showDrop() { navdrop.classList.toggle("active"); }
 	  
 	  <section>
 	    <div class="row">
-		  <div class="grid-xs-12"> <a class="title">Skift_kode();</a> </div>
+		  <div class="grid-xs-12"> <a class="title">Opret_MUS();</a> </div>
 		  <form class="form" action="<?php echo str_replace('.php','',$_SERVER['PHP_SELF']); ?>" method="post">
 		  
 		    <div class="grid-xs-6 grid-md-4">
-			  <input tabindex="1" name="old" type="password" placeholder="Gamle kode" required /> 
+			  <input name="name" type="text" value="<?php echo $selected['name']; ?>" disabled /> 
+			</div>
+		    <div class="grid-xs-6 grid-md-4">
+			  <input tabindex="1" name="deadline" type="date" placeholder="Deadline t.o.m." required /> 
+			  <a class="mini-tip">Deadline t.o.m.</a>
 			</div>
 			<div class="grid-xs-6 grid-md-4">
-			  <input tabindex="2" name="new" type="password" placeholder="Ny kode" required /> 
+			  <input tabindex="2" name="invites" type="number" min="0" max="10" placeholder="Invitationer" required /> 
+			  <a class="mini-tip">Antal tilladt</a>
 			</div>
-			<div class="grid-xs-6 grid-md-4">
-			  <input tabindex="3" name="repeat" type="password" placeholder="Gentag ny kode" required /> 
-			</div>
+			
+			<input name="uid" type="hidden" value="<?php echo $get_id; ?>" /> 
 
 			<div class="grid-xs-12">
-			  <input tabindex="4" name="pass-update-push" type="submit" value="Gem ændring" />
+			  <input tabindex="3" name="mus-create-push" type="submit" value="Opret" />
 			</div>
 			
 		  </form>

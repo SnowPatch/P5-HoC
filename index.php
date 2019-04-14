@@ -12,7 +12,7 @@ if($login === FALSE || !is_array($login)) {
 $info = $user->fetch($login['uid']);
 
 if($info === FALSE || !is_array($info)) {
-  die($info);
+  header("location: login"); die();
 }
 
 
@@ -36,21 +36,21 @@ $employees = $panel->fetch_employees();
 if(is_array($employees)) { 
 
   $output = "";
-  foreach($employees as $empl) {
-	if($empl["admin"] != 1) { $role = "Medarbejder"; } else { $role = "Admin"; }
-	$raw = strtotime($empl["created"]); $formatted = date('d-m-Y', $raw);
+  foreach($employees as $item) {
+	if($item["admin"] != 1) { $role = "Medarbejder"; } else { $role = "Admin"; }
+	$raw = strtotime($item["created"]); $formatted = date('d-m-Y', $raw);
 	$output .= '
 	<div class="grid-xs-12 grid-sm-6 grid-md-4">
 	  <div class="employee">
 	    <div class="data">
-		  <a class="name">'.$empl["name"].'</a>
+		  <a class="name">'.$item["name"].'</a>
 		  <a class="ext">Oprettet: '.$formatted.'</a>
 		  <a class="ext">Konto: '.$role.'</a>
-		  <a class="delete" href="delete?id='.$empl["id"].'" onclick="return confirm(\'Er du sikker?\')">Slet konto</a>
+		  <a class="delete" href="delete_user?id='.$item["id"].'" onclick="return confirm(\'Er du sikker?\')">Slet konto</a>
 		</div>
 		<div class="action">
-		  <a class="button-primary" href="#id'.$empl["id"].'">Opret MUS</a>
-		  <a class="button-secondary" href="#id'.$empl["id"].'">Historik</a>
+		  <a class="button-primary" href="new?id='.$item["id"].'">Opret MUS</a>
+		  <a class="button-secondary" href="history?id='.$item["id"].'">Historik</a>
 		</div>
 	  </div>
 	</div>
@@ -116,6 +116,7 @@ setTimeout(function() { pureFadeOut("errorbox"); }, 5000);
 		  <li>
 		    <button id="dropbtn" class="user" onclick="showDrop();"><?php echo $info['name']; ?></button>
 			<div id="navdrop" class="drop">
+			  <a href="index">Forside</a>
 			  <a href="history">Min historik</a>
 			  <a href="settings">Indstillinger</a>
 			  <a href="logout">Log ud</a>

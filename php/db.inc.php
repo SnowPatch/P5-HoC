@@ -3,6 +3,8 @@
 // Define DB prefix, example: nc_ in front of every table
 define("DB_PREFIX", ""); 
 
+define("DB_ERROR", "Beklager, vi oplever desværre nogle tekniske problemer");
+
 define("DB_SERVER", "localhost"); 
 define("DB_USER", "root"); 
 define("DB_PASS", ""); 

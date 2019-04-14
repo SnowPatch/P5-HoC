@@ -212,6 +212,13 @@ nav li .drop a {
 	padding-bottom: 30px;
 }
 
+.panel .errortext {
+	display: block;
+	color: #333333;
+	font-size: 18px;
+	margin: 50px 0px 50px 0px;
+}
+
 .panel section {
 	margin-top: 60px;
 }
@@ -221,7 +228,10 @@ nav li .drop a {
 	color: #333333;
 }
 
+
 .panel .employee {
+	display: inline-block;
+	width: 100%;
 	background: #FFFFFF;
 	border: 1px solid #DDDDDD;
 	margin-top: 30px;
@@ -229,14 +239,13 @@ nav li .drop a {
 }
 .panel .employee .data {
 	display: inline-block;
-	width: calc(100% - 120px);
+	width: calc(100% - 140px);
 	float: left;
 }
 .panel .employee .action {
 	display: inline-block;
-	width: 120px;
+	width: 140px;
 }
-
 .panel .employee .data .name {
 	display: inline-block;
 	width: 100%;
@@ -260,7 +269,6 @@ nav li .drop a {
 	margin-top: 18px;
 	text-decoration: none;
 }
-
 .panel .employee .action .button-primary {
 	display: inline-block;
 	box-sizing: border-box;
@@ -271,7 +279,8 @@ nav li .drop a {
 	background: none;
 	border: 1px solid #A5BB75;
 	padding: 10px 0px;
-	width: 100%;
+	width: 120px;
+	float: right;
 	text-align: center;
 	transition: color 0.3s, background 0.3s, border 0.3s;
 } .panel .employee .action .button-primary:hover {
@@ -289,17 +298,123 @@ nav li .drop a {
 	background: none;
 	border: 1px solid #919191;
 	padding: 10px 0px;
-	width: 100%;
+	width: 120px;
+	float: right;
 	text-align: center;
 	transition: color 0.3s, background 0.3s, border 0.3s;
 } .panel .employee .action .button-secondary:hover {
 	cursor: pointer;
 }
 
+
 .panel .form {
 	display: inline-block;
 	width: 100%;
 	margin-top: 30px;
+}
+
+.panel .form .mini-tip {
+	display: inline-block;
+	margin-top: -18px;
+	font-size: 11px;
+	color: #919191;
+}
+
+
+.panel .historik {
+	display: inline-block;
+	width: 100%;
+	background: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	margin-top: 30px;
+	margin-bottom: 10px;
+	padding: 18px;
+}
+.panel .historik .data .id {
+	display: inline-block;
+	width: 100%;
+	color: #333333;
+	font-size: 20px;
+	text-decoration: none;
+	margin-bottom: 22px;
+}
+.panel .historik .data .info {
+	display: inline-block;
+	width: 100%;
+	color: #919191;
+	font-size: 15px;
+	line-height: 1.2;
+	margin-bottom: 8px;
+}
+.panel .historik .data .delete {
+	display: inline-block;
+	width: 100%;
+	color: #DB606C;
+	font-size: 12px;
+	font-weight: 600;
+	margin-top: 12px;
+	margin-bottom: 30px;
+	text-decoration: none;
+}
+.panel .historik .action form {
+	display: inline-block;
+	width: 100%;
+	margin: 5px 0px;
+}
+.panel .historik .action form select {
+	display: inline-block;
+	height: 36px;
+	width: 150px;
+	font-size: 13px;
+}
+.panel .historik .action form input[type="submit"] {
+	display: inline-block;
+	height: 36px;
+	font-size: 13px;
+	padding: 0px 16px;
+}
+.panel .historik .action .answers {
+	display: inline-block;
+	width: 100%;
+	padding: 16px;
+	border: 1px solid #DEDEDE;
+} .panel .historik .action .title {
+	display: block;
+	color: #333333;
+	font-size: 14px;
+	margin-bottom: 4px;
+}
+.panel .historik .action .button-primary {
+	display: inline-block;
+	box-sizing: border-box;
+	text-decoration: none;
+	color: #A5BB75;
+	font-size: 12px;
+	margin: 10px 10px 0px 0px;
+	background: none;
+	border: 1px solid #A5BB75;
+	padding: 10px 16px;
+	transition: color 0.3s, background 0.3s, border 0.3s;
+	float: left;
+} .panel .historik .action .button-primary:hover {
+	color: #FFFFFF;
+	background: #A5BB75;
+	cursor: pointer;
+}
+.panel .historik .action .button-secondary {
+	display: inline-block;
+	box-sizing: border-box;
+	text-decoration: none;
+	color: #666666;
+	font-size: 12px;
+	margin: 10px 10px 0px 0px;
+	background: none;
+	border: 1px solid #919191;
+	padding: 10px 16px;
+	transition: color 0.3s, background 0.3s, border 0.3s;
+	float: left;
+} .panel .historik .action .button-secondary:hover {
+	cursor: pointer;
 }
 
 
