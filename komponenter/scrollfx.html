@@ -1,0 +1,147 @@
+<html>
+
+<head>
+
+    <title>Scroll demo</title>
+	<meta charset="utf-8">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body div {
+            background: lightgreen;
+            height: calc(100vh - 100px);
+            width: 300px;
+            vertical-align: top;
+            margin: 50px;
+        }
+
+        #menu {
+            height: 50px;
+            width: auto;
+            position: fixed;
+            top: 50;
+            right: 50;
+            background: #B3C589;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div id="menu">Højt Drive!</div>
+    
+    <div id="q1">
+        <a>Spørgsmål 1</a> <br>
+        <button onClick="letsGo('2');">Videre</button>
+        <button onClick="letsGo('14');">Gå til sidste</button>
+    </div>
+
+    <div id="q2">
+        <a>Spørgsmål 2</a> <br>
+        <button onClick="letsGo('3');">Videre</button>
+        <button onClick="letsGo('1');">Tilbage</button>
+    </div>
+
+    <div id="q3">
+        <a>Spørgsmål 3</a> <br>
+        <button onClick="letsGo('4');">Videre</button>
+        <button onClick="letsGo('2');">Tilbage</button>
+    </div>
+
+    <div id="q4">
+        <a>Spørgsmål 4</a> <br>
+        <button onClick="letsGo('5');">Videre</button>
+        <button onClick="letsGo('3');">Tilbage</button>
+    </div>
+
+    <div id="q5">
+        <a>Spørgsmål 5</a> <br>
+        <button onClick="letsGo('6');">Videre</button>
+        <button onClick="letsGo('4');">Tilbage</button>
+    </div>
+    
+    <div id="q6">
+        <a>Spørgsmål 6</a> <br>
+        <button onClick="letsGo('7');">Videre</button>
+        <button onClick="letsGo('5');">Tilbage</button>
+    </div>
+    
+    <div id="q7">
+        <a>Spørgsmål 7</a> <br>
+        <button onClick="letsGo('8');">Videre</button>
+        <button onClick="letsGo('6');">Tilbage</button>
+    </div>
+    
+    <div id="q8">
+        <a>Spørgsmål 8</a> <br>
+        <button onClick="letsGo('9');">Videre</button>
+        <button onClick="letsGo('7');">Tilbage</button>
+    </div>
+    
+    <div id="q9">
+        <a>Spørgsmål 9</a> <br>
+        <button onClick="letsGo('10');">Videre</button>
+        <button onClick="letsGo('8');">Tilbage</button>
+    </div>
+    
+    <div id="q10">
+        <a>Spørgsmål 10</a> <br>
+        <button onClick="letsGo('11');">Videre</button>
+        <button onClick="letsGo('9');">Tilbage</button>
+    </div>
+    
+    <div id="q11">
+        <a>Spørgsmål 11</a> <br>
+        <button onClick="letsGo('12');">Videre</button>
+        <button onClick="letsGo('10');">Tilbage</button>
+    </div>
+    
+    <div id="q12">
+        <a>Spørgsmål 12</a> <br>
+        <button onClick="letsGo('13');">Videre</button>
+        <button onClick="letsGo('11');">Tilbage</button>
+    </div>
+    
+    <div id="q13">
+        <a>Spørgsmål 13</a> <br>
+        <button onClick="letsGo('14');">Videre</button>
+        <button onClick="letsGo('12');">Tilbage</button>
+    </div>
+    
+    <div id="q14">
+        <a>Spørgsmål 14</a> <br>
+        <button onClick="letsGo('13');">Tilbage</button>
+        <button onClick="letsGo('1');">Gå til første</button>
+    </div>
+</body>
+
+<script>
+    function letsGo(id) {
+        var target = "q" + id;
+        document.getElementById(target).scrollIntoView({
+            behavior: "smooth"
+        });
+        if (0 < parseInt(id) && parseInt(id) < 5) {
+            document.getElementById("menu").innerHTML = "Højt Drive!";
+            document.getElementById("menu").style.background = "#B3C589";
+        }
+        if (4 < parseInt(id) && parseInt(id) < 9) {
+            document.getElementById("menu").innerHTML = "Et stærkt team!";
+            document.getElementById("menu").style.background = "#AD86AF";
+        }
+        if (8 < parseInt(id) && parseInt(id) < 13) {
+            document.getElementById("menu").innerHTML = "God karma!";
+            document.getElementById("menu").style.background = "#D26D75";
+        }
+        if (12 < parseInt(id) && parseInt(id) < 17) {
+            document.getElementById("menu").innerHTML = "Ha' det sjovt!";
+            document.getElementById("menu").style.background = "#6696AC";
+        }
+    }
+</script>
+
+</html>
