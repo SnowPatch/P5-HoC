@@ -1,0 +1,15 @@
+.bokse{
+margin:100px;
+display: block;
+}
+
+.tooltip {
+background: #777777;
+margin-left: 28px;
+padding: 10px;
+position: absolute;
+z-index: 1000;
+width:100px;
+height:100px;
+display: block;
+}
