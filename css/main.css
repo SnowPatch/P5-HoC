@@ -184,7 +184,7 @@ nav li .drop a {
 
 
 .breadcrumbs {
-	margin-top: 10px;
+	margin-top: 14px;
 }
 .breadcrumbs a {
 	display: inline-block;
@@ -224,56 +224,75 @@ nav li .drop a {
 .panel .employee {
 	background: #FFFFFF;
 	border: 1px solid #DDDDDD;
-	padding: 18px;
 	margin-top: 30px;
+	padding: 18px;
 }
-.panel .employee .name {
-	display: block;
-	color: #333333;
-	font-size: 16px;
-} .panel .employee .name a {
-	text-decoration: none;
-} .panel .employee .name sup {
-	vertical-align: middle;
-	font-size: 60%;
-	font-weight: 600;
-	color: #DB7F88; 
+.panel .employee .data {
+	display: inline-block;
+	width: calc(100% - 120px);
+	float: left;
 }
-.panel .employee .role {
-	display: block;
-	color: #919191;
-	font-size: 12px;
-	margin-top: 4px;
+.panel .employee .action {
+	display: inline-block;
+	width: 120px;
 }
 
-.panel .button-primary {
+.panel .employee .data .name {
+	display: inline-block;
+	width: 100%;
+	color: #333333;
+	font-size: 18px;
+	text-decoration: none;
+}
+.panel .employee .data .ext {
+	display: inline-block;
+	width: 100%;
+	color: #919191;
+	font-size: 12px;
+	margin-top: 6px;
+}
+.panel .employee .data .delete {
+	display: inline-block;
+	width: 100%;
+	color: #DB606C;
+	font-size: 12px;
+	font-weight: 600;
+	margin-top: 18px;
+	text-decoration: none;
+}
+
+.panel .employee .action .button-primary {
 	display: inline-block;
 	box-sizing: border-box;
 	text-decoration: none;
 	color: #A5BB75;
-	font-size: 13px;
-	margin: 15px 5px 0px 0px;
+	font-size: 12px;
+	margin: 0px 0px 10px 0px;
 	background: none;
 	border: 1px solid #A5BB75;
-	padding: 10px 14px;
+	padding: 10px 0px;
+	width: 100%;
+	text-align: center;
 	transition: color 0.3s, background 0.3s, border 0.3s;
-} .panel .button-primary:hover {
+} .panel .employee .action .button-primary:hover {
 	color: #FFFFFF;
 	background: #A5BB75;
 	cursor: pointer;
 }
-
-.panel .button-secondary {
+.panel .employee .action .button-secondary {
 	display: inline-block;
 	box-sizing: border-box;
 	text-decoration: none;
-	color: #919191;
-	font-size: 13px;
-	margin: 15px 5px 0px 0px;
+	color: #666666;
+	font-size: 12px;
+	margin: 0px 0px 10px 0px;
 	background: none;
+	border: 1px solid #919191;
 	padding: 10px 0px;
+	width: 100%;
+	text-align: center;
 	transition: color 0.3s, background 0.3s, border 0.3s;
-} .panel .button-secondary:hover {
+} .panel .employee .action .button-secondary:hover {
 	cursor: pointer;
 }
 

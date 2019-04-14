@@ -96,7 +96,7 @@ class User extends Database {
 	
   function fetch($uid) { 
 	
-	$sql = "SELECT id, email, name, permissions, admin FROM " . DB_PREFIX . "employees WHERE id = ? AND deleted = 0";
+	$sql = "SELECT id, email, name, permissions, created, admin FROM " . DB_PREFIX . "employees WHERE id = ? AND deleted = 0";
 	if(!($stmt = $this->db->prepare($sql))) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
 	$stmt->bind_param("i", $uid);
 	if (!$stmt->execute()) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
@@ -216,7 +216,7 @@ class User extends Database {
 	$pass_gen = $this->token(16);
 	$pass_crypt = password_hash($pass_gen, PASSWORD_DEFAULT);
 	
-	$sql = "INSERT INTO " . DB_PREFIX . "employees (email,name,pass,admin) VALUES (?,?,?,?)";
+	$sql = "INSERT INTO " . DB_PREFIX . "employees (email,name,pass,created,admin) VALUES (?,?,?,NOW(),?)";
 	if(!($stmt = $this->db->prepare($sql))) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
 	$stmt->bind_param("sssi", $identifier, $name, $pass_crypt, $role);
 	if (!$stmt->execute()) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
@@ -301,7 +301,7 @@ class Panel extends Database {
 	
   function fetch_employees() { 
 	
-	$sql = "SELECT id, email, name, permissions, admin FROM " . DB_PREFIX . "employees WHERE deleted = 0 ORDER BY id ASC";
+	$sql = "SELECT id, email, name, permissions, created, admin FROM " . DB_PREFIX . "employees WHERE deleted = 0 ORDER BY id ASC";
 	if(!($stmt = $this->db->prepare($sql))) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
 	if (!$stmt->execute()) { return('Beklager, vi oplever desværre nogle tekniske problemer'); }
 	

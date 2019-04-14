@@ -38,16 +38,20 @@ if(is_array($employees)) {
   $output = "";
   foreach($employees as $empl) {
 	if($empl["admin"] != 1) { $role = "Medarbejder"; } else { $role = "Admin"; }
+	$raw = strtotime($empl["created"]); $formatted = date('d-m-Y', $raw);
 	$output .= '
-	<div class="grid-xs-6">
+	<div class="grid-xs-12 grid-sm-6 grid-md-4">
 	  <div class="employee">
-		<div class="name"> 
-		  <a>'.$empl["name"].'</a> 
-		  <a href="delete?id='.$empl["id"].'" onclick="return confirm(\'Er du sikker?\')"><sup>slet</sup></a> 
+	    <div class="data">
+		  <a class="name">'.$empl["name"].'</a>
+		  <a class="ext">Oprettet: '.$formatted.'</a>
+		  <a class="ext">Konto: '.$role.'</a>
+		  <a class="delete" href="delete?id='.$empl["id"].'" onclick="return confirm(\'Er du sikker?\')">Slet konto</a>
 		</div>
-		<a class="role">'.$role.'</a>
-		<a class="button-primary" href="#id'.$empl["id"].'">Opret MUS</a>
-		<a class="button-secondary" href="#id'.$empl["id"].'">Alle samtaler</a>
+		<div class="action">
+		  <a class="button-primary" href="#id'.$empl["id"].'">Opret MUS</a>
+		  <a class="button-secondary" href="#id'.$empl["id"].'">Historik</a>
+		</div>
 	  </div>
 	</div>
 	';
