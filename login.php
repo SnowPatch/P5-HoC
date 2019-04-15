@@ -87,7 +87,7 @@ setTimeout(function() { pureFadeOut("errorbox"); }, 5000);
 		  <img src="images/hoc-icon-color.svg" alt="House of Code" />
 		</div>
 	  
-		<form class="form" action="<?php echo str_replace('.php','',$_SERVER['PHP_SELF']); ?>" method="post">
+		<form class="form" action="login" method="post">
 		  <input tabindex="1" name="identifier" class="top" type="email" placeholder="Email" required /> 
 		  <input tabindex="2" name="password" class="bottom" type="password" placeholder="Kodeord" required /> 
 		  <input id="cookie" type="checkbox" name="remember" value="cookie" checked /> <label for="cookie">Husk mig (cookie)</label>

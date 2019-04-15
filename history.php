@@ -57,7 +57,6 @@ if(is_array($history)) {
   $output = "";
   foreach($history as $item) {
 	  
-	$action = str_replace('.php','',$_SERVER['PHP_SELF']);
 	$raw = strtotime($item["deadline"]); $formatted = date('d-m-Y', $raw);
 	
 	$invite = "";
@@ -77,7 +76,7 @@ if(is_array($history)) {
 		
 		  $invite = '
 		    <a class="title">Inviter kollega ('.(count($item["child"]) - 1).'/'.$item["invites"].')</a>
-			<form action="'.$action.'" method="post">
+			<form action="history?id='.$history_id.'" method="post">
 		      <select tabindex="1" id="empl" name="empl" required>
 				<option value="" disabled="" selected="">Kollega</option>
 				'.$employee_list.'

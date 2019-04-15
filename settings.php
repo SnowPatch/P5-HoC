@@ -125,7 +125,7 @@ function showDrop() { navdrop.classList.toggle("active"); }
 	  <section>
 	    <div class="row">
 		  <div class="grid-xs-12"> <a class="title">Skift_kode();</a> </div>
-		  <form class="form" action="<?php echo str_replace('.php','',$_SERVER['PHP_SELF']); ?>" method="post">
+		  <form class="form" action="settings" method="post">
 		  
 		    <div class="grid-xs-6 grid-md-4">
 			  <input tabindex="1" name="old" type="password" placeholder="Gamle kode" required /> 

@@ -82,7 +82,6 @@ if($info['admin'] == 1) {
 	  $output = "";
 	  foreach($history as $item) {
 		  
-		$action = str_replace('.php','',$_SERVER['PHP_SELF']);
 		$raw = strtotime($item["deadline"]); $formatted = date('d-m-Y', $raw);
 		
 		$invite = "";
@@ -102,7 +101,7 @@ if($info['admin'] == 1) {
 			
 			  $invite = '
 				<a class="title">Inviter kollega ('.(count($item["child"]) - 1).'/'.$item["invites"].')</a>
-				<form action="'.$action.'" method="post">
+				<form action="index" method="post">
 				  <select tabindex="1" id="empl" name="empl" required>
 					<option value="" disabled="" selected="">Kollega</option>
 					'.$employee_list.'
@@ -280,7 +279,7 @@ function showDrop() { navdrop.classList.toggle("active"); }
 	  <section>
 	    <div class="row">
 		  <div class="grid-xs-12"> <a class="title">Opret_ny();</a> </div>
-		  <form class="form" action="<?php echo str_replace('.php','',$_SERVER['PHP_SELF']); ?>" method="post">
+		  <form class="form" action="index" method="post">
 		  
 		    <div class="grid-xs-6 grid-md-4">
 			  <input tabindex="1" name="identifier" type="email" placeholder="Email" required /> 
