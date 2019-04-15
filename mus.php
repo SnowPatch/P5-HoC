@@ -14,18 +14,6 @@ $info = $user->fetch($login['uid']);
 if($info === FALSE || !is_array($info)) {
   die($info);
 }
-
-
-if(isset($_POST['pass-update-push'])){ 
-  
-  $result = $user->change_pass($info['id'], $_POST['old'], $_POST['new'], $_POST['repeat']);
-  
-  if($result === TRUE) {
-	$login = $user->logout();
-	header("location: login?pass-change=1"); die();
-  } 
-  
-}
 	
 ?>
 <!doctype html>
@@ -52,7 +40,7 @@ if(isset($_POST['pass-update-push'])){
 </head>
 <body>
 
-<?php if(isset($_POST['pass-update-push'])){ ?>
+<?php if(isset($_POST['mus-create-push'])){ ?>
 <div id="errorbox" class="submit-error"> <a><?php echo $result; ?></a> </div>
 <script type="text/javascript">
 function pureFadeOut(elem){
@@ -100,7 +88,7 @@ setTimeout(function() { pureFadeOut("errorbox"); }, 5000);
 	  <div class="grid-xs-12 breadcrumbs">
 	    <a>WebMUS</a>
 		<a href="index">Forside</a>
-		<a href="settings">Settings</a>
+		<a href="mus">MUS</a>
 	  </div>
     </div>
   </div>
@@ -124,24 +112,7 @@ function showDrop() { navdrop.classList.toggle("active"); }
 	  
 	  <section>
 	    <div class="row">
-		  <div class="grid-xs-12"> <a class="title">Skift_kode();</a> </div>
-		  <form class="form" action="<?php echo str_replace('.php','',$_SERVER['PHP_SELF']); ?>" method="post">
-		  
-		    <div class="grid-xs-6 grid-md-4">
-			  <input tabindex="1" name="old" type="password" placeholder="Gamle kode" required /> 
-			</div>
-			<div class="grid-xs-6 grid-md-4">
-			  <input tabindex="2" name="new" type="password" placeholder="Ny kode" required /> 
-			</div>
-			<div class="grid-xs-6 grid-md-4">
-			  <input tabindex="3" name="repeat" type="password" placeholder="Gentag ny kode" required /> 
-			</div>
-
-			<div class="grid-xs-12">
-			  <input tabindex="4" name="pass-update-push" type="submit" value="Gem ændring" />
-			</div>
-			
-		  </form>
+		  <div class="grid-xs-12"> <a class="title">Kommer_snart();</a> </div>
 		</div>
 	  </section>
 	

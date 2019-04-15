@@ -7,6 +7,7 @@ $login = $user->validate();
 if($login !== FALSE && is_array($login)) {
   header("location: index"); die();
 }
+
   
 if(isset($_POST['login-push'])){ 
   
@@ -45,8 +46,6 @@ if(isset($_POST['login-push'])){
 </head>
 <body>
 
-<?php if(isset($_POST['login-push'])){ ?>
-<div id="errorbox" class="submit-error"> <a><?php echo $result; ?></a> </div>
 <script type="text/javascript">
 function pureFadeOut(elem){
 	
@@ -62,7 +61,18 @@ function pureFadeOut(elem){
   })();
   
 };
+</script>
 
+<?php if(isset($_GET['pass-change'])) { ?>
+<div id="successbox" class="submit-success"> <a>Succes! Log ind med den nye kode</a> </div>
+<script type="text/javascript">
+setTimeout(function() { pureFadeOut("successbox"); }, 5000);
+</script>
+<?php } ?>
+
+<?php if(isset($_POST['login-push'])){ ?>
+<div id="errorbox" class="submit-error"> <a><?php echo $result; ?></a> </div>
+<script type="text/javascript">
 setTimeout(function() { pureFadeOut("errorbox"); }, 5000);
 </script>
 <?php } ?>
@@ -90,7 +100,7 @@ setTimeout(function() { pureFadeOut("errorbox"); }, 5000);
 	
 	<section class="right">
 	
-	  <a>#BeAwesome</a>
+	  <a id="box"></a>
 	  
 	  <div class="one"></div>
 	  <div class="two"></div>
@@ -102,4 +112,56 @@ setTimeout(function() { pureFadeOut("errorbox"); }, 5000);
   </main>
 
 </body>
+
+<script>
+var element = document.getElementById('box');
+var quotes = ["#BeAwesome", "#BeCreative", "#BeHappy", "#BeHelpful", "#BePositive"];
+var quoteNum = 0;
+var speed = 60;
+
+var i = 0;
+var j = quotes[quoteNum].length;
+
+function loop() {
+  
+  // TypeWrite effekt ind
+  if (i < quotes[quoteNum].length) {
+    element.innerHTML += quotes[quoteNum].charAt(i);
+	i++;
+	setTimeout(loop, speed); 
+	return;
+  }
+  
+  // Delay
+  if (i == quotes[quoteNum].length) { 
+    i++; 
+	setTimeout(loop, 2800); 
+	return;
+  }
+  
+  // TypeWrite effekt ud
+  if (j >= 0) {
+    element.innerHTML = element.innerHTML.substring(0, j); 
+    j--;
+	setTimeout(loop, speed); 
+	return;
+  }
+  
+  // Reset
+  if (j < 0) {
+    quoteNum++;
+	if(quoteNum == quotes.length) {
+	  quoteNum = 0;
+	}
+    i = 0;
+	j = quotes[quoteNum].length;
+	setTimeout(loop, speed); 
+	return;
+  }
+  
+}
+
+window.onload = loop();
+</script>
+
 </html>

@@ -21,6 +21,19 @@ body {
 	font-size: 14px;
 }
 
+.submit-success {
+	position: absolute;
+	width: 100%;
+	background: #B8C991;
+	padding: 28px 32px;
+	z-index: 99;
+} .submit-success a {
+	text-decoration: none;
+	color: #507C2E;
+	font-size: 14px;
+}
+
+
 .login .left, .login .right {
 	display: inline-block; 
 	height: 100vh;
