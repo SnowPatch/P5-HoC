@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JS ToolTip</title>
+</head>
+<style>
+.container {
+  display: block;
+  width: 20px;
+  margin: 0 auto;
+  margin-top: calc(10% + 50px);
+}
+
+.container .box {
+  display: inline-block;
+  position: relative;
+  margin: 10px 0px;
+}
+.container .box a {
+  display: block;
+  width: 100%;
+  font-family: arial;
+  font-size: 18px;
+} .container .box a:hover {
+  cursor: pointer;
+}
+
+.container .box .tooltip {
+  display: none;
+  position: absolute;
+  white-space: nowrap;
+  padding: 10px 14px;
+  font-family: arial;
+  font-size: 15px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #FFFFFF;
+  right: calc(100% + 16px);
+  top: 50%;
+  transform: translateY(-50%);
+} 
+.container .box .tooltip:after {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-left-color: rgba(0, 0, 0, 0.4);
+	border-width: 6px;
+	margin-top: -6px;
+}
+</style>
+<body>
+
+  <div class="container">
+  
+    <div class="box"> 
+	  <a>1</a> 
+	  <span class="tooltip">Tooltip one</span> 
+	</div>
+	
+	<div class="box"> 
+	  <a>2</a> 
+	  <span class="tooltip">Tooltip two</span> 
+	</div>
+	
+	<div class="box"> 
+	  <a>3</a> 
+	  <span class="tooltip">Tooltip three</span> 
+	</div>
+	
+	<div class="box"> 
+	  <a>4</a> 
+	  <span class="tooltip">Tooltip four</span> 
+	</div>
+	
+  </div>
+  
+</body>
+
+<script>
+window.addEventListener("load", function () {
+  
+  var targets = document.getElementsByClassName("box");
+  var i;
+  var tooltip;
+
+  for (i = 0; i < targets.length; i++) {
+  
+    targets[i].addEventListener("mouseover", function () {
+      tooltip = this.getElementsByClassName("tooltip")[0];
+      tooltip.style.display = "inline-block";
+    });
+		
+    targets[i].addEventListener("mouseout", function () {
+      tooltip = this.getElementsByClassName("tooltip")[0];
+      tooltip.style.display = "none";
+    });
+		
+    }
+	
+});
+</script>
+
+</html>
