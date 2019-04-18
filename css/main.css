@@ -431,6 +431,126 @@ nav li .drop a {
 }
 
 
+/* MUS */
+
+.mus .top {
+	display: block;
+	width: 100%;
+	margin: 40px 0px 0px 0px;
+} .mus .top a {
+	display: inline-block;
+	padding: 26px 36px;
+	color: #F9F9F9;
+	font-size: 16px;
+	font-weight: 600;
+}
+.mus .top#top1 { background: #B3C589; }
+.mus .top#top2 { background: #AD86AF; }
+.mus .top#top3 { background: #D26D75; }
+.mus .top#top4 { background: #6696AC; }
+
+.mus section {
+	margin: 2vh 0px 14vh 0px;
+	padding: 40px 0px;
+	opacity: 0.3;
+}
+
+.mus section .title {
+	display: block;
+	margin-bottom: 20px;
+	color: #212121;
+	font-size: 18px;
+	line-height: 1.25;
+	font-weight: 600;
+}
+
+.mus section .button-primary {
+	display: inline-block;
+	box-sizing: border-box;
+	text-decoration: none;
+	color: #A5BB75;
+	font-size: 14px;
+	margin: 0px 0px 10px 0px;
+	background: none;
+	border: 1px solid #A5BB75;
+	padding: 16px 24px;
+	outline: none;
+	text-align: center;
+	transition: color 0.3s, background 0.3s, border 0.3s;
+} .mus section .button-primary:hover {
+	color: #FFFFFF;
+	background: #A5BB75;
+	cursor: pointer;
+}
+.mus section .button-secondary {
+	display: inline-block;
+	box-sizing: border-box;
+	text-decoration: none;
+	color: #666666;
+	font-size: 14px;
+	margin: 0px 0px 10px 0px;
+	background: none;
+	border: 1px solid #919191;
+	padding: 16px 24px;
+	outline: none;
+	text-align: center;
+	transition: color 0.3s, background 0.3s, border 0.3s;
+} .mus section .button-secondary:hover {
+	cursor: pointer;
+}
+
+
+.tooltip-container {
+  display: block;
+  width: 20px;
+  position: fixed;
+  right: 40px;
+  top: calc(10vh + 50px);
+  z-index: 99;
+}
+
+.tooltip-container .box {
+  display: inline-block;
+  position: relative;
+  margin: 10px 0px;
+}
+.tooltip-container .box a {
+  display: block;
+  width: 100%;
+  font-family: arial;
+  font-size: 18px;
+} .tooltip-container .box a:hover {
+  cursor: pointer;
+}
+
+.tooltip-container .box .tooltip {
+  display: none;
+  position: absolute;
+  white-space: nowrap;
+  padding: 10px 14px;
+  font-family: arial;
+  font-size: 15px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #FFFFFF;
+  right: calc(100% + 16px);
+  top: 50%;
+  transform: translateY(-50%);
+} 
+.tooltip-container .box .tooltip:after {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-left-color: rgba(0, 0, 0, 0.4);
+	border-width: 6px;
+	margin-top: -6px;
+}
+
 
 
 

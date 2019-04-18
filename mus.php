@@ -88,7 +88,7 @@ setTimeout(function() { pureFadeOut("errorbox"); }, 5000);
 	  <div class="grid-xs-12 breadcrumbs">
 	    <a>WebMUS</a>
 		<a href="index">Forside</a>
-		<a href="mus">MUS</a>
+		<a href="">MUS</a>
 	  </div>
     </div>
   </div>
@@ -106,19 +106,229 @@ window.addEventListener('click', function(e){
 function showDrop() { navdrop.classList.toggle("active"); }
 </script>
 
-  <main class="panel">
-  
+  <main class="mus">
+	
 	<div class="container">
 	  
-	  <section>
-	    <div class="row">
-		  <div class="grid-xs-12"> <a class="title">Kommer_snart();</a> </div>
+	  <form id="musForm">
+	  
+		<div class="top" id="top1">
+		  <a id="topText">Del 1 - Højt Drive</a>
 		</div>
-	  </section>
-	
+		
+	    <section id="q1">
+	      <div class="row">
+		    <div class="grid-xs-12"> <a class="title">Jeg arbejder med mit eget fagområde udenfor arbejdstiden</a> </div>
+			<div class="grid-xs-6 grid-md-4">
+			  <select name="a1">
+			    <option value="" disabled selected>Vælg svar</option>
+				<option value="1">Ja</option>
+				<option value="0">Nej</option>
+			  </select>
+			</div>
+			<div class="grid-xs-12">
+			  <textarea name="x1" placeholder="Uddyb hvis svaret er ja &#10&#10Eksempel: &#10Når jeg har fri arbejder jeg på mine egne projekter"></textarea>
+			</div>
+			<div class="grid-xs-12">
+			  <input type="button" class="button-primary" value="Videre" onclick="letsGo('2');" />
+			</div>
+		  </div>
+	    </section>
+		
+		<section id="q2">
+	      <div class="row">
+		    <div class="grid-xs-12"> <a class="title">Jeg opsøger ny viden inden for mit eget og andres fagområder i og uden for arbejdstiden</a> </div>
+			<div class="grid-xs-6 grid-md-4">
+			  <select name="a2">
+			    <option value="" disabled selected>Vælg svar</option>
+				<option value="1">Ja</option>
+				<option value="0">Nej</option>
+			  </select>
+			</div>
+			<div class="grid-xs-12">
+			  <textarea name="x2" placeholder="Uddyb hvis svaret er ja &#10&#10Eksempel: &#10Jeg læser fagbøger for at udvide min horisont"></textarea>
+			</div>
+			<div class="grid-xs-12">
+			  <input type="button" class="button-primary" value="Videre" onclick="letsGo('3');" />
+			  <input type="button" class="button-secondary" value="Tilbage" onclick="letsGo('1');" />
+			</div>
+		  </div>
+	    </section>
+		
+		<section id="q3">
+	      <div class="row">
+		    <div class="grid-xs-12"> <a class="title">Jeg deler min nye tilegnet viden med kolleger og dokumenterer dette</a> </div>
+			<div class="grid-xs-6 grid-md-4">
+			  <select name="a3">
+			    <option value="" disabled selected>Vælg svar</option>
+				<option value="1">Ja</option>
+				<option value="0">Nej</option>
+			  </select>
+			</div>
+			<div class="grid-xs-12">
+			  <textarea name="x3" placeholder="Uddyb hvis svaret er ja &#10&#10Eksempel: &#10Best practice deles på Slack/Confluence"></textarea>
+			</div>
+			<div class="grid-xs-12">
+			  <input type="button" class="button-primary" value="Videre" onclick="letsGo('4');" />
+			  <input type="button" class="button-secondary" value="Tilbage" onclick="letsGo('2');" />
+			</div>
+		  </div>
+	    </section>
+		
+		<section id="q4">
+	      <div class="row">
+		    <div class="grid-xs-12"> <a class="title">Jeg holder mig opdateret omkring apps, design og arbejdsmetoder</a> </div>
+			<div class="grid-xs-6 grid-md-4">
+			  <select name="a4">
+			    <option value="" disabled selected>Vælg svar</option>
+				<option value="1">Ja</option>
+				<option value="0">Nej</option>
+			  </select>
+			</div>
+			<div class="grid-xs-12">
+			  <textarea name="x4" placeholder="Uddyb hvis svaret er ja &#10&#10Eksempel: &#10Jeg læser bøger, artikler, følger med på LinkedIn"></textarea>
+			</div>
+			<div class="grid-xs-12">
+			  <input type="button" class="button-primary" value="Videre" onclick="letsGo('5');" />
+			  <input type="button" class="button-secondary" value="Tilbage" onclick="letsGo('3');" />
+			</div>
+		  </div>
+	    </section>
+		
+		<section id="q5">
+	      <div class="row">
+		    <div class="grid-xs-12"> <a class="title">Jeg opsøger selv nye opgaver der skaber værdi for House of Code eller giver input til eksisterende opgaver der skaber værdi for House of Code eller vores samarbejdspartnere</a> </div>
+			<div class="grid-xs-6 grid-md-4">
+			  <select name="a5">
+			    <option value="" disabled selected>Vælg svar</option>
+				<option value="1">Ja</option>
+				<option value="0">Nej</option>
+			  </select>
+			</div>
+			<div class="grid-xs-12">
+			  <textarea name="x5" placeholder="Uddyb hvis svaret er ja &#10&#10Eksempel: &#10Når jeg er færdig med mine opgaver, spørger jeg om andre har brug for hjælp"></textarea>
+			</div>
+			<div class="grid-xs-12">
+			  <input type="button" class="button-primary" value="Videre" onclick="letsGo('6');" />
+			  <input type="button" class="button-secondary" value="Tilbage" onclick="letsGo('4');" />
+			</div>
+		  </div>
+	    </section>
+		
+		
+		<div class="top" id="top2">
+		  <a id="topText">Del 2 - Et Stærkt Team</a>
+		</div>
+		
+		<section id="q6">
+	      <div class="row">
+		    <div class="grid-xs-12"> <a class="title">Jeg deler min nye tilegnet viden med kolleger og dokumenterer dette</a> </div>
+			<div class="grid-xs-6 grid-md-4">
+			  <select name="a6">
+			    <option value="" disabled selected>Vælg svar</option>
+				<option value="1">Ja</option>
+				<option value="0">Nej</option>
+			  </select>
+			</div>
+			<div class="grid-xs-12">
+			  <textarea name="x6" placeholder="Uddyb hvis svaret er ja &#10&#10Eksempel: &#10Jeg opsøger selv pair programming"></textarea>
+			</div>
+			<div class="grid-xs-12">
+			  <input type="button" class="button-primary" value="Videre" onclick="letsGo('7');" />
+			  <input type="button" class="button-secondary" value="Tilbage" onclick="letsGo('5');" />
+			</div>
+		  </div>
+	    </section>
+		
+		<section id="q7">
+	      <div class="row">
+		    <div class="grid-xs-12"> <a class="title">Jeg omgås med mine kolleger i og uden for arbejdstiden</a> </div>
+			<div class="grid-xs-6 grid-md-4">
+			  <select name="a7">
+			    <option value="" disabled selected>Vælg svar</option>
+				<option value="1">Ja</option>
+				<option value="0">Nej</option>
+			  </select>
+			</div>
+			<div class="grid-xs-12">
+			  <textarea name="x7" placeholder="Uddyb hvis svaret er ja &#10&#10Eksempel: &#10Tager i biografen, walk n’ talk, træner sammen"></textarea>
+			</div>
+			<div class="grid-xs-12">
+			  <input type="button" class="button-primary" value="Videre" onclick="letsGo('8');" />
+			  <input type="button" class="button-secondary" value="Tilbage" onclick="letsGo('6');" />
+			</div>
+		  </div>
+	    </section>
+	  
+	  </form>
+	  
 	</div>
 	
   </main>
+  
+  <div class="tooltip-container">
+  
+    <div class="box"> 
+	  <a onclick="letsGo('1');">1</a> 
+	  <span class="tooltip">Højt Drive</span> 
+	</div>
+	<div class="box"> 
+	  <a onclick="letsGo('6');">2</a> 
+	  <span class="tooltip">Et stærkt Team</span> 
+	</div>
+	<div class="box"> 
+	  <a onclick="letsGo('11');">3</a> 
+	  <span class="tooltip">God Karma</span> 
+	</div>
+	<div class="box"> 
+	  <a onclick="letsGo('16');">4</a> 
+	  <span class="tooltip">Ha' Det Sjovt</span> 
+	</div>
+	
+  </div>
+  
+<script>
+window.addEventListener("load", function () {
+  
+  var targets = document.getElementsByClassName("box");
+  var i;
+  var tooltip;
+
+  for (i = 0; i < targets.length; i++) {
+  
+    targets[i].addEventListener("mouseover", function () {
+      tooltip = this.getElementsByClassName("tooltip")[0];
+      tooltip.style.display = "inline-block";
+    });
+		
+    targets[i].addEventListener("mouseout", function () {
+      tooltip = this.getElementsByClassName("tooltip")[0];
+      tooltip.style.display = "none";
+    });
+		
+    }
+	
+});
+</script>
+
+<script>
+function letsGo(id) {
+  var target = "q" + id;
+  document.getElementById(target).scrollIntoView({
+    behavior: "smooth"
+  });
+  document.getElementById(target).style.opacity = "1";
+  if(id != 1) {
+	target = "q" + (parseInt(id)-1);
+	document.getElementById(target).style.opacity = "0.3";
+  }
+  if(id != 20) {
+	target = "q" + (parseInt(id)+1);
+	document.getElementById(target).style.opacity = "0.3";
+  }
+}
+window.onload = function() { document.getElementById("q1").style.opacity = "1"; }
+</script>
 
 </body>
 </html>

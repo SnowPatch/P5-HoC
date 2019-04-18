@@ -245,6 +245,10 @@ select {
 	margin-bottom: 25px;
 }
 
+textarea {
+	line-height: 1.3;
+}
+
 /* Removes awkward default styles on some inputs */
 input[type="email"],
 input[type="number"],
