@@ -135,7 +135,7 @@ if($info['admin'] == 1) {
 				  '.$invite.'
 				  <div class="answers">
 					<a class="title">Besvarelser</a>
-					<a class="button-primary" href="mus?id='.$item["id"].'&type=employee">Mit svar</a>
+					<a class="button-primary" href="mus?id='.$item["id"].'&type='.$ext_type.'">Mit svar</a>
 				  </div>
 				</div>
 			
@@ -165,8 +165,6 @@ if($info['admin'] == 1) {
 
   <link rel="stylesheet" href="css/main.css?v=<?php print filemtime("css/main.css"); ?>" />
   <link rel="stylesheet" href="iconfont/material-icons.css">
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" async></script>
 
   <!-- Icon -->
 

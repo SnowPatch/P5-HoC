@@ -54,8 +54,6 @@ if($selected === FALSE || !is_array($selected)) {
 
   <link rel="stylesheet" href="css/main.css?v=<?php print filemtime("css/main.css"); ?>" />
   <link rel="stylesheet" href="iconfont/material-icons.css">
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" async></script>
 
   <!-- Icon -->
 

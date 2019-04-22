@@ -96,7 +96,7 @@ class User extends Database {
 	
   function fetch($uid) { 
 	
-	$sql = "SELECT id, email, name, permissions, created, admin FROM " . DB_PREFIX . "employees WHERE id = ? AND deleted = 0";
+	$sql = "SELECT id, email, name, created, admin FROM " . DB_PREFIX . "employees WHERE id = ? AND deleted = 0";
 	if(!($stmt = $this->db->prepare($sql))) { return(DB_ERROR); }
 	$stmt->bind_param("i", $uid);
 	if (!$stmt->execute()) { return(DB_ERROR); }
@@ -301,7 +301,7 @@ class Panel extends Database {
 	
   function fetch_employees() { 
 	
-	$sql = "SELECT id, email, name, permissions, created, admin FROM " . DB_PREFIX . "employees WHERE deleted = 0 ORDER BY id ASC";
+	$sql = "SELECT id, email, name, created, admin FROM " . DB_PREFIX . "employees WHERE deleted = 0 ORDER BY id ASC";
 	if(!($stmt = $this->db->prepare($sql))) { return(DB_ERROR); }
 	if (!$stmt->execute()) { return(DB_ERROR); }
 	
@@ -453,7 +453,25 @@ class Panel extends Database {
 	
 	$stmt->close();
 	
-  }   
+  }
+
+
+  function fetch_mus($id, $type) { 
+	
+	$sql = "SELECT id, id_to, type, parent, answer FROM " . DB_PREFIX . "mus WHERE id = ? AND deleted = 0";
+	if(!($stmt = $this->db->prepare($sql))) { return(DB_ERROR); }
+	$stmt->bind_param("i", $id);
+	if (!$stmt->execute()) { return(DB_ERROR); }
+	
+	$result = $stmt->get_result();
+	
+	if($result->num_rows != 1) { die('Vi kunne desværre ikke indhente information om samtalen'); }
+	
+	return $result->fetch_assoc();
+	
+	$stmt->close();
+	
+  }  
   
 }
 
