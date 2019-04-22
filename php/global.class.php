@@ -471,7 +471,23 @@ class Panel extends Database {
 	
 	$stmt->close();
 	
-  }  
+  }
+  
+  
+  function update_mus($mid, $answers) { 
+	
+	$answers_json = json_encode($answers, JSON_FORCE_OBJECT);
+	
+	$sql = "UPDATE " . DB_PREFIX . "mus SET answer = ? WHERE id = ?";
+	if(!($stmt = $this->db->prepare($sql))) { return(DB_ERROR); }
+	$stmt->bind_param("si", $answers_json, $mid);
+	if (!$stmt->execute()) { return(DB_ERROR); }
+	
+	return TRUE;
+	
+	$stmt->close();
+	
+  } 
   
 }
 
