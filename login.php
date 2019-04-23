@@ -46,7 +46,7 @@ if(isset($_POST['login-push'])){
 </head>
 <body>
 
-<script type="text/javascript">
+<script>
 function pureFadeOut(elem){
 	
   var el = document.getElementById(elem);
@@ -65,14 +65,14 @@ function pureFadeOut(elem){
 
 <?php if(isset($_GET['pass-change'])) { ?>
 <div id="successbox" class="submit-success"> <a>Succes! Log ind med den nye kode</a> </div>
-<script type="text/javascript">
+<script>
 setTimeout(function() { pureFadeOut("successbox"); }, 5000);
 </script>
 <?php } ?>
 
 <?php if(isset($_POST['login-push'])){ ?>
 <div id="errorbox" class="submit-error"> <a><?php echo $result; ?></a> </div>
-<script type="text/javascript">
+<script>
 setTimeout(function() { pureFadeOut("errorbox"); }, 5000);
 </script>
 <?php } ?>
@@ -85,6 +85,11 @@ setTimeout(function() { pureFadeOut("errorbox"); }, 5000);
 	  
 	    <div class="logo">
 		  <img src="images/hoc-icon-color.svg" alt="House of Code" />
+		</div>
+		
+		<div class="intro">
+		  <h2>Velkommen</h2>
+		  <h3>Log ind for at fortsætte</h3>
 		</div>
 	  
 		<form class="form" action="login" method="post">
@@ -110,8 +115,6 @@ setTimeout(function() { pureFadeOut("errorbox"); }, 5000);
 	</section>
 	
   </main>
-
-</body>
 
 <script>
 var element = document.getElementById('box');
@@ -163,5 +166,7 @@ function loop() {
 
 window.onload = loop();
 </script>
+
+</body>
 
 </html>

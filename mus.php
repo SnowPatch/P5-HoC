@@ -140,7 +140,7 @@ function showDrop() { navdrop.classList.toggle("active"); }
 		<input type="hidden" name="mtype" value="<?php echo $_GET['type']; ?>" />
 		
 		<div class="top" id="top1">
-		  <a id="topText">Del 1 - Højt Drive</a>
+		  <a id="topText">1.1 - Højt Drive</a>
 		</div>
 		
 	    <section id="q1">
@@ -289,7 +289,7 @@ function showDrop() { navdrop.classList.toggle("active"); }
 		
 		
 		<div class="top" id="top2">
-		  <a id="topText">Del 2 - Et Stærkt Team</a>
+		  <a id="topText">1.2 - Et Stærkt Team</a>
 		</div>
 		
 		<section id="q6">
@@ -438,7 +438,7 @@ function showDrop() { navdrop.classList.toggle("active"); }
 	    </section>
 		
 		<div class="top" id="top3">
-		  <a id="topText">Del 3 - God Karma</a>
+		  <a id="topText">1.3 - God Karma</a>
 		</div>
 		
 		<section id="q11">
@@ -587,7 +587,7 @@ function showDrop() { navdrop.classList.toggle("active"); }
 	    </section>
 		
 		<div class="top" id="top4">
-		  <a id="topText">Del 4 - Ha' Det Sjovt</a>
+		  <a id="topText">1.4 - Ha' Det Sjovt</a>
 		</div>
 		
 		<section id="q16">
@@ -742,19 +742,19 @@ function showDrop() { navdrop.classList.toggle("active"); }
   
   <div class="tooltip-container">
 	<div class="box"> 
-	  <a onclick="letsGo('1');">1</a> 
+	  <a onclick="letsGo('1');">1.1</a> 
 	  <span class="tooltip">Højt Drive</span> 
 	</div>
 	<div class="box"> 
-	  <a onclick="letsGo('6');">2</a> 
+	  <a onclick="letsGo('6');">1.2</a> 
 	  <span class="tooltip">Et stærkt Team</span> 
 	</div>
 	<div class="box"> 
-	  <a onclick="letsGo('11');">3</a> 
+	  <a onclick="letsGo('11');">1.3</a> 
 	  <span class="tooltip">God Karma</span> 
 	</div>
 	<div class="box"> 
-	  <a onclick="letsGo('16');">4</a> 
+	  <a onclick="letsGo('16');">1.4</a> 
 	  <span class="tooltip">Ha' Det Sjovt</span> 
 	</div>
   </div>
@@ -814,17 +814,21 @@ $("#musForm input, #musForm textarea, #musForm select").on('change keyup paste',
 </script>
 
 <script>
+var oldSave;
 function autoSave(){
-  $.ajax({
-	type: 'POST',
-	url: "php/save.php",
-	data: $('#musForm').serialize(),
-	success: function(data) {
-	  if(data == "modtaget") {
-		document.getElementById("saveText").innerHTML = "Data er gemt";
+  if(oldSave != $('#musForm').serialize()) {
+    $.ajax({
+	  type: 'POST',
+	  url: "php/save.php",
+	  data: $('#musForm').serialize(),
+	  success: function(data) {
+	    if(data == "modtaget") {
+		  document.getElementById("saveText").innerHTML = "Data er gemt";
+	    }
 	  }
-	}
-  });
+    });
+  }
+  oldsave = $('#musForm').serialize();
 }
 
 setInterval(function(){ 

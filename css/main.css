@@ -62,6 +62,21 @@ body {
 	margin-bottom: 40px;
 }
 
+.login .intro h2 {
+	display: block;
+	font-size: 24px;
+	font-weight: 600;
+	color: #515F6D;
+	margin-bottom: 5px;
+}
+.login .intro h3 {
+	display: block;
+	font-size: 18px;
+	font-weight: 400;
+	color: #B9BFC5;
+	margin-bottom: 30px;
+}
+
 .login .right div {
 	display: inline-block; 
 	height: 50%;
@@ -504,7 +519,7 @@ nav li .drop a {
   display: block;
   width: 20px;
   position: fixed;
-  right: 40px;
+  right: 60px;
   top: calc(10vh + 50px);
   z-index: 99;
 }

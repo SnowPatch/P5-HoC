@@ -128,7 +128,6 @@ if($info['admin'] == 1) {
 				<div class="grid-xs-12 grid-sm-4 grid-md-3 grid-lg-2 data">
 				  <a class="id">#'.$item["id"].'</a>
 				  <a class="info">Deadline:<br>'.$formatted.'</a>
-				  <a class="delete" href="" onclick="return confirm(\'Er du sikker?\')">Slet samtale</a>
 				</div>
 			
 				<div class="grid-xs-12 grid-sm-8 grid-md-9 grid-lg-10 action">

@@ -244,7 +244,7 @@ class User extends Database {
 	$mail->Subject = 'Din kode til HoC WebMUS';
 	$mail->Body    = '
 	<br>Din konto til WebMUS er nu oprettet. 
-	<br>Du kan logge ind med din email samt følgende kodeord: <b>'.$pass_gen.'</b>
+	<br>Du kan logge ind med din email samt dette kodeord: <b>'.$pass_gen.'</b>
 	<br>
 	<br>Husk dog, at koden helst skal skiftes hurtigst muligt.';
 	$mail->AltBody = 'Din konto til WebMUS er oprettet. Din kode er '.$pass_gen;
@@ -481,6 +481,20 @@ class Panel extends Database {
 	$sql = "UPDATE " . DB_PREFIX . "mus SET answer = ? WHERE id = ?";
 	if(!($stmt = $this->db->prepare($sql))) { return(DB_ERROR); }
 	$stmt->bind_param("si", $answers_json, $mid);
+	if (!$stmt->execute()) { return(DB_ERROR); }
+	
+	return TRUE;
+	
+	$stmt->close();
+	
+  } 
+  
+  
+  function remove_mus($uid) { 
+	
+	$sql = "UPDATE " . DB_PREFIX . "mus SET deleted = 1 WHERE id = ?";
+	if(!($stmt = $this->db->prepare($sql))) { return(DB_ERROR); }
+	$stmt->bind_param("i", $uid);
 	if (!$stmt->execute()) { return(DB_ERROR); }
 	
 	return TRUE;
